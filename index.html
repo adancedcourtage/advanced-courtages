@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Courtages - Expertise Dirigeants</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- AOS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#DFBD7D',
+                            dark: '#A68345',
+                        },
+                        midnight: '#0A1128',
+                        anthracite: '#1E293B',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-midnight text-slate-300 font-sans antialiased overflow-x-hidden;
+            }
+            h1, h2, h3, h4 {
+                @apply font-serif;
+            }
+        }
+
+        @layer components {
+            .btn-premium {
+                @apply px-8 py-4 bg-gradient-to-br from-gold to-gold-light text-midnight rounded-none font-bold uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-[0_10px_30px_rgba(197,160,89,0.3)] active:scale-95 cursor-pointer inline-flex items-center justify-center;
+            }
+            .glass {
+                @apply bg-white/5 backdrop-blur-xl border border-white/10;
+            }
+            .glass-dark {
+                @apply bg-midnight/40 backdrop-blur-md border border-white/5;
+            }
+            .separator-gold {
+                @apply h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+            }
+            .text-gradient-gold {
+                @apply bg-clip-text text-transparent bg-gradient-to-br from-gold via-gold-light to-gold;
+            }
+        }
+
+        /* Custom styles that need to be defined outside tailwind layered styles for safety */
+        input[type=range] {
+            @apply appearance-none bg-white/10 h-1.5 cursor-pointer outline-none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #C5A059;
+            cursor: pointer;
+            border: 4px solid #0A1128;
+            box-shadow: 0 0 15px rgba(197,160,89,0.4);
+        }
+    </style>
+
+    <style>
+        /* Fallback Styles in case CDN or Tailwinds JIT fails to parse immediately */
+        body {
+            background-color: #0A1128;
+            color: #cbd5e1;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .bg-midnight {
+            background-color: #0A1128;
+        }
+        .text-gold {
+            color: #C5A059;
+        }
+    </style>
+</head>
+<body class="bg-midnight text-slate-300">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-midnight/80 backdrop-blur-xl border-b border-white/5 h-24">
+        <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
+            <div class="flex flex-col">
+                <a href="/" class="flex flex-col">
+                    <img src="logo-advanced.png" alt="ADVANCED COURTAGES" class="h-10 w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <span class="text-xl font-serif font-bold tracking-widest text-white italic hidden">
+                        ADVANCED <span class="text-gold not-italic">COURTAGES</span>
+                    </span>
+                    <span class="text-[8px] uppercase tracking-[0.4em] text-gold font-bold mt-1 leading-none">Consulting • Expertises Privées</span>
+                </a>
+            </div>
+            
+            <div class="hidden lg:flex items-center gap-12">
+                <nav class="flex gap-10 text-[10px] uppercase tracking-[0.2em] font-black text-white/50">
+                    <a href="#expertise" class="hover:text-gold transition-colors">Notre Vision</a>
+                    <a href="#simulateur" class="hover:text-gold transition-colors">Simulateur</a>
+                    <a href="#contact" class="hover:text-gold transition-colors">Audit Gratuit</a>
+                </nav>
+                <a href="#contact" class="bg-gradient-to-br from-gold to-gold-light text-midnight px-8 py-3 rounded-none text-[10px] font-black uppercase tracking-widest hover:brightness-110 shadow-lg transition-all">Rappel Immédiat</a>
+            </div>
+
+            <!-- Mobile Menu Trigger (Optional but good for completeness) -->
+            <button class="lg:hidden text-white">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-midnight">
+            <img src="dirigeant-hero.png" alt="Expertise Dirigeant" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-midnight/20 to-midnight"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-none mb-8">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-gold"></i>
+                    <span class="text-[10px] uppercase tracking-widest text-gold font-bold italic">Société inscrite à l'ORIAS • Expertise TNS</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-serif text-white italic leading-tight mb-8">
+                    Votre statut vous protège-t-il <span class="text-gradient-gold not-italic block mt-4">vraiment ?</span>
+                </h1>
+                <p class="text-xl text-slate-400 mb-10 leading-relaxed font-light italic max-w-xl">
+                    En 2024-2025, le risque de carence n'est plus une option. Pour le dirigeant mandataire, l'absence de protection sociale d'État est une réalité. Assurez votre pérennité personnelle.
+                </p>
+                <div class="flex flex-wrap gap-8 items-center">
+                    <a href="#simulateur" class="btn-premium flex items-center gap-3 group">
+                        Estimer ma protection <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden lg:block relative" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="200">
+                <div class="glass p-1 rounded-none rotate-2 shadow-2xl scale-105">
+                    <div class="bg-midnight/90 p-12 border border-white/5">
+                        <div class="space-y-12">
+                            <div class="relative">
+                                <p class="text-[10px] uppercase tracking-widest text-red-500/80 font-bold mb-3 italic">Allocation Institutionnelle (ATI)</p>
+                                <div class="flex items-end gap-3 text-white">
+                                    <span class="text-6xl font-serif italic">0€</span>
+                                    <span class="text-[10px] text-slate-500 pb-3 uppercase tracking-widest">Dans 90% des cas*</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600 mt-4 leading-relaxed uppercase tracking-wider italic">
+                                    *L’ATI est inaccessible pour la majorité des dirigeants suite aux plafonds de ressources.
+                                </p>
+                            </div>
+                            <div class="separator-gold opacity-30"></div>
+                            <div class="relative">
+                                <p class="text-[10px] uppercase tracking-widest text-gold font-bold mb-3 italic">Advanced Courtages (Privé)</p>
+                                <div class="flex items-end gap-3 text-white">
+                                    <span class="text-6xl font-serif italic text-gold">80%</span>
+                                    <span class="text-[10px] text-slate-500 pb-3 uppercase tracking-widest">Garantis</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600 mt-4 leading-relaxed uppercase tracking-wider italic font-bold">
+                                    Couverture immédiate • Déductibilité fiscale Madelin (Art. 154 bis).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secteurs Section -->
+    <section id="expertise" class="py-32 relative bg-midnight text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24" data-aos="fade-up">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-gold font-black italic block mb-6">Expertise par Métier</span>
+                <h2 class="text-5xl md:text-6xl font-serif italic">Une protection <span class="text-gold">Souveraine</span> <br>pour vos ambitions.</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16">
+                <!-- Artisan Card -->
+                <div class="group relative h-[600px] overflow-hidden shadow-2xl border border-white/5 bg-anthracite" data-aos="fade-up">
+                    <img src="artisan-cible.png" alt="Artisans & Commerçants" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/60 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-12 w-full">
+                        <div class="h-12 w-px bg-gold mb-6 group-hover:h-24 transition-all duration-700 mx-auto hidden"></div>
+                        <div class="w-12 h-px bg-gold mb-6 group-hover:w-24 transition-all duration-700"></div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-gold font-black mb-4 block">TPE / PME / Commerce</span>
+                        <h3 class="text-4xl italic mb-6">Artisans & <br>Commerçants</h3>
+                        <p class="text-sm text-slate-400 group-hover:text-slate-200 transition-colors leading-relaxed font-light italic max-w-sm">
+                            Protégez votre foyer face aux aléas économiques. Nous transformons votre risque personnel en une charge d'exploitation sécurisée.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Liberale Card -->
+                <div class="group relative h-[600px] overflow-hidden shadow-2xl border border-white/5 bg-anthracite" data-aos="fade-up" data-aos-delay="200">
+                    <img src="liberale.png" alt="Professions Libérales" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/60 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-12 w-full">
+                        <div class="w-12 h-px bg-gold mb-6 group-hover:w-24 transition-all duration-700"></div>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-gold font-black mb-4 block">Conseil / Santé / Justice</span>
+                        <h3 class="text-4xl italic mb-6">Professions <br>Libérales</h3>
+                        <p class="text-sm text-slate-400 group-hover:text-slate-200 transition-colors leading-relaxed font-light italic max-w-sm">
+                            Maintenez votre train de vie et celui de vos proches. Optimisez votre fiscalité tout en bâtissant un rempart contre l'imprévu.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulator Section -->
+    <section id="simulateur" class="py-32 relative bg-slate-900/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="glass p-1 rounded-none relative overflow-hidden" data-aos="zoom-in">
+                <div class="absolute top-0 right-0 bg-gradient-to-br from-gold to-gold-light text-midnight font-black py-4 px-10 text-[10px] uppercase tracking-[0.3em] z-20 italic">
+                    BONUS : +6 mois après 3 ans de fidélité
+                </div>
+                
+                <div class="bg-midnight/95 p-8 lg:p-16 border border-white/5 relative">
+                    <div class="text-center mb-16">
+                        <span class="text-gold uppercase tracking-[0.4em] text-[10px] font-black italic block mb-4">Audit de Résilience Digital</span>
+                        <h2 class="text-5xl font-serif text-white italic">Simuler ma <span class="text-gradient-gold">Continuité.</span></h2>
+                    </div>
+                    
+                    <div class="space-y-16">
+                        <div class="relative">
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                                <label class="text-[10px] uppercase tracking-[0.4em] font-black text-slate-500 italic">Revenu Net Fiscal Annuel (Euros)</label>
+                                <div class="text-center">
+                                    <span id="income-display" class="text-6xl md:text-7xl font-serif text-gold italic">47 100 €</span>
+                                    <div id="pass-label" class="text-[10px] uppercase tracking-widest text-slate-600 font-bold mt-4 italic">1.0 PASS 2025</div>
+                                </div>
+                            </div>
+                            <input 
+                                type="range" 
+                                id="simulator-range"
+                                min="0.5" 
+                                max="5" 
+                                step="0.1" 
+                                value="1"
+                                class="w-full"
+                            >
+                            <div class="flex justify-between mt-6 text-[9px] tracking-widest font-black text-slate-700 uppercase">
+                                <span>Minimum Garanti (0.5 PASS)</span>
+                                <span>Expertise Elite (5.0 PASS)</span>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-10">
+                            <!-- Option Premium -->
+                            <div class="glass-dark p-10 border border-gold/20 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-gold"></div>
+                                <h4 class="text-[11px] uppercase tracking-[0.4em] font-black text-gold mb-8 italic">Option Confort (80%)</h4>
+                                <div class="space-y-4">
+                                    <p class="text-5xl font-serif text-white italic"><span id="m80-display">3 140</span> €</p>
+                                    <p class="text-[10px] uppercase tracking-widest font-black text-slate-500">Par mois garanti</p>
+                                    <div class="pt-6 border-t border-white/5 opacity-60">
+                                        <p class="text-[9px] text-slate-400 italic">Couverture standard : 9 mois extensibles.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Option Serenite -->
+                            <div class="glass-dark p-10 border border-white/10 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-slate-500/30"></div>
+                                <h4 class="text-[11px] uppercase tracking-[0.4em] font-black text-slate-400 mb-8 italic">Option Longue (50%)</h4>
+                                <div class="space-y-4">
+                                    <p class="text-5xl font-serif text-white italic"><span id="m50-display">1 963</span> €</p>
+                                    <p class="text-[10px] uppercase tracking-widest font-black text-slate-500">Par mois garanti</p>
+                                    <div class="pt-6 border-t border-white/5 opacity-60">
+                                        <p class="text-[9px] text-slate-400 italic">Couverture étendue : jusqu'à 18 mois.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center mt-12 text-[10px] text-slate-600 italic uppercase tracking-widest">
+                *Simulations basées sur le PASS 2025 (Plafond Annuel de la Sécurité Sociale). Données contractuelles après audit personnalisé.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact & Audit Section -->
+    <section id="contact" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="lg:flex glass border-none shadow-2xl relative overflow-hidden rounded-none" data-aos="fade-up">
+                <!-- Info Side -->
+                <div class="lg:w-1/2 p-12 lg:p-20 bg-midnight/30 flex flex-col justify-center border-r border-white/5">
+                    <span class="text-gold uppercase tracking-[0.5em] text-[10px] font-black mb-8 block italic">Cercle Privé</span>
+                    <h2 class="text-6xl md:text-7xl font-serif text-white italic leading-none mb-12">Activer votre <br><span class="text-gradient-gold">Audit d'Élite.</span></h2>
+                    
+                    <div class="space-y-12">
+                        <div class="flex items-start gap-6">
+                            <div class="w-10 h-px bg-gold mt-3 opacity-50"></div>
+                            <div>
+                                <h4 class="text-white text-[12px] uppercase tracking-widest font-bold mb-2">Confidentialité Absolue</h4>
+                                <p class="text-[11px] text-slate-400 uppercase tracking-widest leading-relaxed italic">Étude complète de vos carences sans engagement.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="w-10 h-px bg-gold mt-3 opacity-50"></div>
+                            <div>
+                                <h4 class="text-white text-[12px] uppercase tracking-widest font-bold mb-2">Optimisation Madelin</h4>
+                                <p class="text-[11px] text-slate-400 uppercase tracking-widest leading-relaxed italic">Votre entreprise finance votre propre sécurité.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="lg:w-1/2 p-12 lg:p-20">
+                    <form action="https://formspree.io/f/conseiller@advancedcourtages.com" method="POST" class="space-y-8">
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-[0.5em] text-slate-500 font-bold italic block">Mandataire Social</label>
+                            <input type="text" name="nom" required class="w-full bg-white/5 border border-white/10 py-5 px-8 text-[11px] text-white focus:outline-none focus:border-gold transition-all placeholder:text-white/10 uppercase tracking-widest" placeholder="NOM COMPLET">
+                        </div>
+                        
+                        <div class="grid sm:grid-cols-2 gap-8">
+                            <div class="space-y-2">
+                                <label class="text-[9px] uppercase tracking-[0.5em] text-slate-500 font-bold italic block">Liaison Mobile</label>
+                                <input type="tel" name="telephone" required class="w-full bg-white/5 border border-white/10 py-5 px-8 text-[11px] text-white focus:outline-none focus:border-gold transition-all" placeholder="06 00 00 00 00">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[9px] uppercase tracking-[0.5em] text-slate-500 font-bold italic block">Localité</label>
+                                <input type="text" name="ville" required class="w-full bg-white/5 border border-white/10 py-5 px-8 text-[11px] text-white focus:outline-none focus:border-gold transition-all" placeholder="VILLE">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-[0.5em] text-slate-500 font-bold italic block">Immatriculation SIRET</label>
+                            <input type="text" name="siret" required class="w-full bg-white/5 border border-white/10 py-5 px-8 text-[11px] text-white focus:outline-none focus:border-gold transition-all" placeholder="NUMÉRO SIRET VALIDE">
+                        </div>
+                        
+                        <div class="pt-6">
+                            <label class="flex items-start gap-4 cursor-pointer">
+                                <input type="checkbox" required class="mt-1 accent-gold h-4 w-4 bg-transparent border-white/10">
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest leading-relaxed italic">
+                                    <strong>Attestation de dirigeant obligatoire.</strong><br>
+                                    Je certifie être mandataire social / dirigeant <span class="text-gold">(hors statut auto-entrepreneur)</span>.
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-br from-gold to-gold-light text-midnight py-6 text-[10px] font-black uppercase tracking-[0.6em] shadow-[0_20px_50px_rgba(197,160,89,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                            Activer l'Audit Gratuit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-32 bg-midnight/80 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-flex flex-col items-center mb-16 grayscale opacity-40 hover:opacity-100 transition-opacity">
+                <img src="logo-advanced.png" alt="Advanced Courtages" class="h-10 w-auto object-contain mb-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span class="text-lg font-serif font-bold text-white hidden">ADVANCED COURTAGES</span>
+                <span class="text-[9px] text-gold uppercase tracking-[0.4em] font-black">Expertise Mandataires Sociaux</span>
+            </div>
+            
+            <p class="max-w-4xl mx-auto text-[9px] text-slate-600 uppercase tracking-[0.4em] leading-loose italic">
+                Advanced Courtages Consulting • 14 ans d'accompagnement Dirigeants. 
+                Cabinet expert en protection sociale mandataire social. ORIAS n° XXXXXXXX. 
+                Fiscalité Art. 154 bis du CGI. Les simulations sont fournies à titre indicatif et ne constituent pas un engagement contractuel.
+                © 2024 TOUS DROITS RÉSERVÉS.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Initializations -->
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Init AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+        });
+
+        // Simulator Implementation
+        const PASS_2025 = 47100;
+        const range = document.getElementById('simulator-range');
+        const incomeDisplay = document.getElementById('income-display');
+        const passLabel = document.getElementById('pass-label');
+        const m80Display = document.getElementById('m80-display');
+        const m50Display = document.getElementById('m50-display');
+
+        const numberFormat = new Intl.NumberFormat('fr-FR', {
+            maximumFractionDigits: 0
+        });
+
+        function updateValues() {
+            const mult = parseFloat(range.value);
+            const total = mult * PASS_2025;
+            
+            incomeDisplay.textContent = numberFormat.format(total) + ' €';
+            passLabel.textContent = mult.toFixed(1) + ' PASS 2025';
+            
+            // Calculate monthly portions
+            const m80 = Math.round((total * 0.8) / 12);
+            const m50 = Math.round((total * 0.5) / 12);
+            
+            m80Display.textContent = numberFormat.format(m80);
+            m50Display.textContent = numberFormat.format(m50);
+        }
+
+        range.addEventListener('input', updateValues);
+        
+        // Trigger initial update
+        updateValues();
+    </script>
+</body>
+</html>
