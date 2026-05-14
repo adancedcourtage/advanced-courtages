@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact, reclamation et mediation Advanced Courtages Consulting." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.tnsconseils.com/legal/contact-conforme.html" />
+  <link rel="icon" href="../brand/favicon.svg" type="image/svg+xml" />
+  <title>Contact & reclamation | Advanced Courtages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <style>body{margin:0;background:#050b14;color:#eef3f8;font-family:Inter,sans-serif}.serif{font-family:Cormorant Garamond,serif}.legal p,.legal li{line-height:1.85;color:#475569}.legal h2{font-family:Cormorant Garamond,serif;font-size:2.2rem;line-height:1;margin-top:2.4rem;color:#0f172a}.field{width:100%;border:1px solid rgba(15,23,42,.16);padding:1rem;background:white;color:#0f172a}.hp{position:absolute;left:-9999px;opacity:0}</style>
+</head>
+<body>
+  <header class="border-b border-white/10 px-5 py-5">
+    <div class="mx-auto flex max-w-5xl items-center justify-between">
+      <a href="../index.html"><img src="../brand/ac-logo-primary.svg" alt="Advanced Courtages" class="h-11" /></a>
+      <a href="../index.html#contact" class="bg-[#d2ad63] px-5 py-3 text-xs font-black uppercase tracking-[.18em] text-[#050b14]">Audit prive</a>
+    </div>
+  </header>
+  <main>
+    <section class="px-5 py-16">
+      <div class="mx-auto max-w-5xl">
+        <p class="text-xs font-black uppercase tracking-[.34em] text-[#d2ad63]">Contact reglementaire</p>
+        <h1 class="serif mt-5 text-5xl font-semibold leading-none md:text-7xl">Contact, reclamation et mediation</h1>
+      </div>
+    </section>
+    <article class="legal bg-[#f6f0e5] px-5 py-14 text-slate-950">
+      <div class="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[.9fr_1.1fr]">
+        <div>
+          <h2>Contact commercial</h2>
+          <p>Email : <a class="underline" href="mailto:conseiller@advancedcourtages.com">conseiller@advancedcourtages.com</a></p>
+          <p>Telephone professionnel : <a class="underline" href="tel:+33182832370">+33 1 82 83 23 70</a></p>
+
+          <h2>Reclamation</h2>
+          <p>Email reclamation : <a class="underline" href="mailto:clients@advancedcourtages.com">clients@advancedcourtages.com</a></p>
+          <p>Adresse postale : Advanced Courtages Consulting, 117 rue de Charenton, 75012 Paris.</p>
+          <p>Les reclamations sont analysees avec diligence. En cas d'absence de reponse satisfaisante, le consommateur peut saisir le mediateur apres sa reclamation ecrite prealable, dans les conditions prevues par le Code de la consommation.</p>
+
+          <h2>Mediation</h2>
+          <p>Mediateur competent : La Mediation de l'Assurance, TSA 50110, 75441 Paris Cedex 09, <a class="underline" href="https://www.mediation-assurance.org/" rel="noopener">www.mediation-assurance.org</a>. La procedure est ecrite, confidentielle et gratuite pour le consommateur.</p>
+          <p>Le mediateur peut etre saisi notamment lorsque deux mois se sont ecoules apres une premiere reclamation ecrite adressee au cabinet, sous reserve des conditions de recevabilite applicables.</p>
+        </div>
+        <form id="claimForm" class="bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,.12)]" action="mailto:clients@advancedcourtages.com?subject=Reclamation%20client%20-%20tnsconseils.com" method="post" enctype="text/plain">
+          <input type="hidden" name="Source" value="tnsconseils.com - page reclamation" />
+          <label class="hp" aria-hidden="true">Site<input id="claimTrap" name="Site web" type="text" tabindex="-1" autocomplete="off" /></label>
+          <h2 class="!mt-0">Envoyer une reclamation</h2>
+          <label class="mt-5 block text-sm font-black uppercase tracking-[.18em] text-slate-500">Nom complet<input class="field mt-2" name="Nom complet" required /></label>
+          <label class="mt-5 block text-sm font-black uppercase tracking-[.18em] text-slate-500">Email<input class="field mt-2" name="Email" type="email" required /></label>
+          <label class="mt-5 block text-sm font-black uppercase tracking-[.18em] text-slate-500">Objet<textarea class="field mt-2 min-h-36" name="Reclamation" required></textarea></label>
+          <label class="mt-5 flex gap-3 text-sm text-slate-600"><input class="mt-1 h-4 w-4 accent-[#d2ad63]" type="checkbox" required /> J'accepte l'utilisation de ces informations pour traiter ma reclamation.</label>
+          <button class="mt-6 w-full bg-[#d2ad63] px-6 py-4 text-xs font-black uppercase tracking-[.2em] text-[#050b14]" type="submit">Envoyer au service clients</button>
+        </form>
+      </div>
+    </article>
+  </main>
+  <script>
+    const claimForm = document.getElementById('claimForm');
+    claimForm.addEventListener('submit', (event) => {
+      const trap = document.getElementById('claimTrap');
+      if (trap && trap.value) event.preventDefault();
+    });
+  </script>
+</body>
+</html>
