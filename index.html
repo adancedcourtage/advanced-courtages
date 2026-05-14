@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Advanced Courtages accompagne dirigeants, TNS, artisans et professions liberales dans la protection de leurs revenus avec une prevoyance haut de gamme." />
+  <meta name="theme-color" content="#050b14" />
+  <title>Advanced Courtages | Prevoyance premium dirigeants & TNS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Cormorant Garamond', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            obsidian: '#050b14',
+            midnight: '#071426',
+            ink: '#0d1b2e',
+            royal: '#0f2b4c',
+            gold: '#d2ad63',
+            champagne: '#f4dfb2',
+            platinum: '#eef3f8',
+            parchment: '#f6f0e5'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --obsidian: #050b14;
+      --midnight: #071426;
+      --ink: #0d1b2e;
+      --royal: #0f2b4c;
+      --gold: #d2ad63;
+      --champagne: #f4dfb2;
+      --platinum: #eef3f8;
+      --parchment: #f6f0e5;
+      --muted: #9aa8bb;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--obsidian); }
+    body {
+      margin: 0;
+      color: var(--platinum);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(120deg, rgba(210, 173, 99, .12), transparent 24rem),
+        linear-gradient(180deg, #050b14 0%, #071426 42%, #f6f0e5 42%, #f6f0e5 66%, #050b14 66%, #050b14 100%);
+      overflow-x: hidden;
+    }
+
+    section { scroll-margin-top: 7rem; }
+    .serif { font-family: "Cormorant Garamond", serif; }
+
+    .premium-shell {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .premium-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .72s ease, transform .72s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .glass {
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+      box-shadow: 0 30px 100px rgba(0,0,0,.32);
+      backdrop-filter: blur(22px);
+    }
+
+    .gold-border {
+      border: 1px solid rgba(210,173,99,.34);
+    }
+
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine::after {
+      content: "";
+      position: absolute;
+      inset: -100% auto auto -40%;
+      width: 45%;
+      height: 300%;
+      transform: rotate(24deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      transition: left .75s ease;
+    }
+
+    .shine:hover::after { left: 115%; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .8rem;
+      background: linear-gradient(135deg, #e8cb84, #c89942);
+      color: #071426;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      box-shadow: 0 22px 70px rgba(210,173,99,.24);
+      transition: transform .22s ease, filter .22s ease, box-shadow .22s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 28px 92px rgba(210,173,99,.30);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .8rem;
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.82);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      transition: border-color .22s ease, color .22s ease, background .22s ease;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(210,173,99,.7);
+      color: var(--champagne);
+      background: rgba(210,173,99,.08);
+    }
+
+    .icon {
+      width: 1.1rem;
+      height: 1.1rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: none;
+    }
+
+    .range-wrap {
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.045);
+    }
+
+    input[type="range"] {
+      appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold) var(--progress, 22%), rgba(255,255,255,.13) var(--progress, 22%));
+      outline: none;
+      cursor: pointer;
+      touch-action: pan-y;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 6px solid #071426;
+      background: var(--champagne);
+      box-shadow: 0 0 0 1px rgba(210,173,99,.9), 0 0 32px rgba(210,173,99,.48);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 6px solid #071426;
+      background: var(--champagne);
+      box-shadow: 0 0 0 1px rgba(210,173,99,.9), 0 0 32px rgba(210,173,99,.48);
+      cursor: pointer;
+    }
+
+    .field-dark, .field-light {
+      width: 100%;
+      border-radius: 0;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .field-dark {
+      border: 1px solid rgba(210,173,99,.32);
+      background: rgba(255,255,255,.075);
+      color: #fff;
+      padding: 1rem 1.05rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .field-light {
+      border: 1px solid rgba(15,23,42,.15);
+      background: rgba(255,255,255,.84);
+      color: #0f172a;
+      padding: 1rem 1.05rem;
+    }
+
+    .field-dark:focus, .field-light:focus {
+      border-color: rgba(210,173,99,.9);
+      box-shadow: 0 0 0 4px rgba(210,173,99,.16);
+      background: rgba(255,255,255,.11);
+    }
+
+    .field-light:focus { background: #fff; }
+
+    .portrait-mask {
+      mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+    }
+
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease;
+    }
+
+    .mobile-menu.open { max-height: 22rem; }
+
+    .ticker-track {
+      animation: ticker 28s linear infinite;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .ticker-track, .shine::after {
+        animation: none;
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+    <div class="mx-auto max-w-7xl border border-white/10 bg-[#050b14]/88 px-4 shadow-[0_18px_70px_rgba(0,0,0,.34)] backdrop-blur-2xl sm:px-6">
+      <div class="flex h-20 items-center justify-between gap-4">
+        <a href="#top" class="flex min-w-0 items-center gap-4" aria-label="Advanced Courtages">
+          <img src="logo-advanced..png" alt="Advanced Courtages Consulting" class="h-11 w-auto shrink-0 drop-shadow-[0_10px_24px_rgba(0,0,0,.28)]" />
+          <span class="hidden min-w-0 sm:block">
+            <span class="serif block text-xl font-semibold uppercase leading-none tracking-[.18em] text-white">Advanced <span class="text-gold">Courtages</span></span>
+            <span class="mt-2 block text-[.56rem] font-extrabold uppercase tracking-[.34em] text-champagne/80">Private Risk Advisory</span>
+          </span>
+        </a>
+
+        <nav class="hidden items-center gap-8 text-[.68rem] font-extrabold uppercase tracking-[.22em] text-white/72 lg:flex">
+          <a class="transition hover:text-champagne" href="#diagnostic">Diagnostic</a>
+          <a class="transition hover:text-champagne" href="#profils">Profils</a>
+          <a class="transition hover:text-champagne" href="#simulateur">Simulateur</a>
+          <a class="transition hover:text-champagne" href="#preuves">Preuves</a>
+        </nav>
+
+        <div class="hidden items-center gap-3 lg:flex">
+          <a href="#contact" class="btn-primary shine px-6 py-3 text-[.65rem]">Audit prive</a>
+        </div>
+
+        <button id="menuButton" class="grid h-11 w-11 place-items-center border border-white/15 text-white lg:hidden" type="button" aria-label="Ouvrir le menu">
+          <span class="h-px w-5 bg-current shadow-[0_7px_0_current,0_-7px_0_current]"></span>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu border-t border-white/10 lg:hidden">
+        <nav class="grid gap-1 py-4 text-sm font-semibold text-white/80">
+          <a class="py-3" href="#diagnostic">Diagnostic</a>
+          <a class="py-3" href="#profils">Profils dirigeants</a>
+          <a class="py-3" href="#simulateur">Simulateur PASS 2025</a>
+          <a class="py-3" href="#preuves">Preuves</a>
+          <a class="py-3 text-champagne" href="#contact">Audit prive</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="premium-shell relative min-h-screen overflow-hidden bg-obsidian pt-28">
+      <div class="absolute inset-0">
+        <img src="advanced-hero-elite.png" alt="Dirigeant TNS dans un environnement fintech premium" class="h-full w-full object-cover opacity-60" onerror="this.src='dirigeant-hero.png'" />
+        <div class="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/88 to-obsidian/18"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-obsidian/40"></div>
+      </div>
+
+      <div class="relative mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.05fr_.95fr]">
+        <div class="max-w-4xl">
+          <div class="reveal mb-7 inline-flex items-center gap-3 border border-gold/35 bg-white/[.06] px-4 py-3 text-[.68rem] font-black uppercase tracking-[.25em] text-champagne shadow-[0_20px_70px_rgba(210,173,99,.15)] backdrop-blur-xl">
+            <svg class="icon text-gold" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>
+            Cabinet conseil en prevoyance dirigeant
+          </div>
+
+          <h1 class="reveal serif max-w-5xl text-5xl font-semibold leading-[.9] text-white sm:text-7xl lg:text-[7.2rem]">
+            La serenite financiere des dirigeants ne s'improvise pas.
+          </h1>
+          <p class="reveal mt-8 max-w-2xl text-lg leading-8 text-platinum/78 sm:text-xl">
+            Advanced Courtages transforme vos angles morts de protection sociale en architecture privee lisible, premium et actionnable. Pour continuer a proteger votre foyer, votre entreprise et votre niveau de vie, meme quand vos revenus s'arretent.
+          </p>
+
+          <div class="reveal mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="#simulateur" class="btn-primary shine px-7 py-4 text-sm">Calculer ma carence <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+            <a href="#contact" class="btn-secondary px-7 py-4 text-sm">Demander un audit</a>
+          </div>
+
+          <div class="reveal mt-12 grid max-w-3xl grid-cols-3 border border-white/10 bg-white/[.045] backdrop-blur-xl">
+            <div class="p-5"><p class="serif text-3xl font-semibold text-white">14 ans</p><p class="mt-1 text-xs font-bold uppercase tracking-[.18em] text-white/45">experience</p></div>
+            <div class="border-l border-white/10 p-5"><p class="serif text-3xl font-semibold text-white">TNS</p><p class="mt-1 text-xs font-bold uppercase tracking-[.18em] text-white/45">dirigeants</p></div>
+            <div class="border-l border-white/10 p-5"><p class="serif text-3xl font-semibold text-gold">80%</p><p class="mt-1 text-xs font-bold uppercase tracking-[.18em] text-white/45">cible revenu</p></div>
+          </div>
+        </div>
+
+        <aside class="reveal hidden lg:block">
+          <div class="glass gold-border p-4">
+            <div class="relative overflow-hidden border border-white/10 bg-[#071426]/92 p-8">
+              <div class="absolute right-8 top-8 text-[.65rem] font-black uppercase tracking-[.24em] text-gold/70">Risk cockpit</div>
+              <div class="mt-8 grid gap-6">
+                <div>
+                  <p class="text-[.68rem] font-black uppercase tracking-[.28em] text-red-200/80">Sans architecture privee</p>
+                  <div class="mt-4 flex items-end gap-4"><span class="serif text-7xl font-semibold text-white">0</span><span class="pb-3 text-sm font-bold uppercase tracking-[.18em] text-white/45">mois de marge</span></div>
+                </div>
+                <div class="h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"></div>
+                <div>
+                  <p class="text-[.68rem] font-black uppercase tracking-[.28em] text-champagne">Objectif Advanced</p>
+                  <div class="mt-4 flex items-end gap-4"><span class="serif text-7xl font-semibold text-gold">80%</span><span class="pb-3 text-sm font-bold uppercase tracking-[.18em] text-white/45">du revenu</span></div>
+                </div>
+              </div>
+
+              <div class="mt-9 grid gap-3">
+                <div class="flex items-center justify-between border border-white/10 bg-white/[.045] px-4 py-3"><span class="text-sm text-white/58">Invalidite</span><span class="text-sm font-black text-gold">a auditer</span></div>
+                <div class="flex items-center justify-between border border-white/10 bg-white/[.045] px-4 py-3"><span class="text-sm text-white/58">Franchise</span><span class="text-sm font-black text-gold">optimisable</span></div>
+                <div class="flex items-center justify-between border border-white/10 bg-white/[.045] px-4 py-3"><span class="text-sm text-white/58">Revenus foyer</span><span class="text-sm font-black text-gold">prioritaire</span></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="overflow-hidden border-y border-white/10 bg-[#071426] py-5">
+      <div class="ticker-track flex w-[200%] gap-4 text-[.7rem] font-black uppercase tracking-[.24em] text-white/40">
+        <div class="flex w-1/2 justify-around gap-4"><span>Mandataires sociaux</span><span>Professions liberales</span><span>Artisans</span><span>Commercants</span><span>Fiscalite Madelin</span><span>PASS 2025</span></div>
+        <div class="flex w-1/2 justify-around gap-4"><span>Mandataires sociaux</span><span>Professions liberales</span><span>Artisans</span><span>Commercants</span><span>Fiscalite Madelin</span><span>PASS 2025</span></div>
+      </div>
+    </section>
+
+    <section id="diagnostic" class="bg-obsidian py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid gap-14 lg:grid-cols-[.86fr_1.14fr] lg:items-end">
+          <div class="reveal">
+            <p class="text-[.72rem] font-black uppercase tracking-[.38em] text-gold">Diagnostic de carence</p>
+            <h2 class="serif mt-5 text-5xl font-semibold leading-none text-white sm:text-6xl">Le vrai risque n'est pas l'accident. C'est l'absence de plan le jour ou il arrive.</h2>
+          </div>
+          <p class="reveal max-w-2xl text-lg leading-8 text-platinum/70 lg:justify-self-end">
+            Les dirigeants signent des contrats, mais rarement une strategie. Nous clarifions les garanties, les exclusions, les franchises et l'ecart entre votre revenu reel et ce que votre protection actuelle peut maintenir.
+          </p>
+        </div>
+
+        <div class="mt-16 grid gap-4 md:grid-cols-3">
+          <article class="reveal glass p-8"><span class="text-[.68rem] font-black uppercase tracking-[.26em] text-champagne">01</span><h3 class="serif mt-8 text-3xl font-semibold text-white">Carence invisible</h3><p class="mt-4 leading-7 text-white/58">La couverture existe parfois, mais pas au niveau du revenu, du statut ou du train de vie reel.</p></article>
+          <article class="reveal glass p-8"><span class="text-[.68rem] font-black uppercase tracking-[.26em] text-champagne">02</span><h3 class="serif mt-8 text-3xl font-semibold text-white">Contrats disperses</h3><p class="mt-4 leading-7 text-white/58">Un empilement de garanties peut masquer des definitions faibles et des franchises mal calibrees.</p></article>
+          <article class="reveal glass gold-border p-8"><span class="text-[.68rem] font-black uppercase tracking-[.26em] text-champagne">03</span><h3 class="serif mt-8 text-3xl font-semibold text-white">Architecture cible</h3><p class="mt-4 leading-7 text-white/64">Nous priorisons les protections qui preservent le foyer, la tresorerie personnelle et la continuite de decision.</p></article>
+        </div>
+
+        <div class="mt-16 grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-stretch">
+          <article class="reveal relative min-h-[28rem] overflow-hidden border border-white/10 bg-white/[.045]">
+            <img src="tns-risk-cinematic.png" alt="Entrepreneur TNS face a un risque de perte de revenus" class="absolute inset-0 h-full w-full object-cover opacity-72" onerror="this.src='artisan-cible.png'" />
+            <div class="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/65 to-transparent"></div>
+            <div class="relative max-w-xl p-8 sm:p-10">
+              <p class="text-[.68rem] font-black uppercase tracking-[.3em] text-gold">La peur silencieuse</p>
+              <h3 class="serif mt-5 text-4xl font-semibold leading-none text-white sm:text-5xl">Le vrai stress commence quand les revenus deviennent incertains.</h3>
+              <p class="mt-5 leading-8 text-white/68">Arret maladie, accident, invalidite, lenteur administrative : le visiteur TNS doit sentir que vous comprenez son risque avant de lui vendre une solution.</p>
+            </div>
+          </article>
+          <article class="reveal border border-white/10 bg-white/[.045] p-8 sm:p-10">
+            <p class="text-[.68rem] font-black uppercase tracking-[.3em] text-champagne">Objections levees</p>
+            <div class="mt-8 grid gap-5">
+              <div class="border-l border-gold pl-5"><h4 class="font-black text-white">“Je ne comprends pas mes droits.”</h4><p class="mt-2 text-sm leading-6 text-white/58">On traduit le statut, les franchises et les garanties en decisions simples.</p></div>
+              <div class="border-l border-gold/70 pl-5"><h4 class="font-black text-white">“Je n'ai pas le temps de comparer.”</h4><p class="mt-2 text-sm leading-6 text-white/58">On priorise le risque financier reel, pas une liste interminable d'options.</p></div>
+              <div class="border-l border-gold/50 pl-5"><h4 class="font-black text-white">“Et ma famille si je m'arrete ?”</h4><p class="mt-2 text-sm leading-6 text-white/58">Le coeur de l'audit : revenu du foyer, charges fixes, protection durable.</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="profils" class="bg-parchment py-24 text-slate-950 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <p class="text-[.72rem] font-black uppercase tracking-[.38em] text-[#a87c2f]">Segments premium</p>
+          <h2 class="serif mt-5 text-5xl font-semibold leading-none sm:text-6xl">Chaque metier porte un risque financier different.</h2>
+        </div>
+
+        <div class="mt-16 grid gap-8 lg:grid-cols-2">
+          <article class="reveal group bg-white shadow-[0_32px_90px_rgba(15,23,42,.18)]">
+            <div class="relative aspect-[16/11] overflow-hidden"><img src="artisan-cible.png" alt="Artisan dirigeant dans un atelier premium" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" /><div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div><p class="absolute bottom-6 left-6 text-[.68rem] font-black uppercase tracking-[.28em] text-champagne">Artisans & dirigeants PME</p></div>
+            <div class="p-8 sm:p-10"><h3 class="serif text-4xl font-semibold">Quand votre presence est le moteur.</h3><p class="mt-5 leading-8 text-slate-600">L'entreprise peut tenir par votre expertise, votre carnet de commandes et votre capacite a arbitrer vite. La protection doit couvrir le revenu sans ignorer la pression operationnelle.</p></div>
+          </article>
+          <article class="reveal group bg-white shadow-[0_32px_90px_rgba(15,23,42,.18)]">
+            <div class="relative aspect-[16/11] overflow-hidden bg-slate-900"><img src="profession-liberale.png" alt="Profession liberale dans un cabinet haut de gamme" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" onerror="this.src='artisan-cible.png'" /><div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div><p class="absolute bottom-6 left-6 text-[.68rem] font-black uppercase tracking-[.28em] text-champagne">Professions liberales</p></div>
+            <div class="p-8 sm:p-10"><h3 class="serif text-4xl font-semibold">Quand le cabinet repose sur votre signature.</h3><p class="mt-5 leading-8 text-slate-600">Votre reputation, votre disponibilite et votre niveau d'honoraires creent un niveau de vie specifique. L'enjeu est de proteger cette valeur sans complexite inutile.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulateur" class="relative overflow-hidden bg-[#071426] py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
+          <div class="reveal lg:sticky lg:top-32">
+            <p class="text-[.72rem] font-black uppercase tracking-[.38em] text-gold">Simulateur PASS 2025</p>
+            <h2 class="serif mt-5 text-5xl font-semibold leading-none text-white sm:text-6xl">Voyez votre exposition en moins de 30 secondes.</h2>
+            <p class="mt-6 text-lg leading-8 text-platinum/70">Saisissez votre revenu annuel, choisissez votre niveau de maintien et visualisez le revenu mensuel a proteger. L'objectif : declencher un audit concret, pas un devis generique.</p>
+            <div class="mt-8 grid gap-3 text-sm font-semibold text-white/58"><p class="flex gap-3"><svg class="icon mt-1 text-gold" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></svg> PASS 2025 : 47 100 EUR</p><p class="flex gap-3"><svg class="icon mt-1 text-gold" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></svg> Calcul indicatif avant audit contractuel</p></div>
+          </div>
+
+          <div class="reveal glass gold-border p-1">
+            <div class="bg-[#050b14]/88 p-6 sm:p-9 lg:p-11">
+              <div class="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+                <div><label for="incomeInput" class="text-[.68rem] font-black uppercase tracking-[.28em] text-champagne">Revenu net fiscal annuel</label><p id="passLabel" class="mt-3 text-sm font-bold uppercase tracking-[.18em] text-white/42">1.00 PASS 2025</p></div>
+                <p id="incomeValue" class="serif text-5xl font-semibold text-gold sm:text-6xl">47 100 EUR</p>
+              </div>
+
+              <div class="mt-8 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
+                <label><span class="mb-2 block text-[.65rem] font-black uppercase tracking-[.22em] text-white/45">Saisir un montant</span><input id="incomeInput" class="field-dark" type="text" inputmode="numeric" value="47100" /></label>
+                <button id="resetSimulator" class="btn-secondary px-5 py-4 text-[.68rem]" type="button">Reset</button>
+              </div>
+
+              <div class="range-wrap mt-8"><input id="incomeRange" type="range" min="0.5" max="5" value="1" step="0.1" aria-label="Revenu annuel en multiple PASS" /><div class="mt-5 flex justify-between text-[.65rem] font-black uppercase tracking-[.18em] text-white/38"><span>0.5 PASS</span><span>5 PASS</span></div></div>
+
+              <div class="mt-8 grid gap-3 sm:grid-cols-3">
+                <button class="persona border border-white/10 bg-white/[.055] px-5 py-5 text-left text-sm font-black text-white/85 transition hover:border-gold/60 hover:bg-gold/10 focus:border-gold focus:outline-none" data-pass="1.2" type="button">Createur TPE<br><span class="text-xs font-semibold text-white/45">56 520 EUR/an</span></button>
+                <button class="persona border border-white/10 bg-white/[.055] px-5 py-5 text-left text-sm font-black text-white/85 transition hover:border-gold/60 hover:bg-gold/10 focus:border-gold focus:outline-none" data-pass="2.4" type="button">Cabinet etabli<br><span class="text-xs font-semibold text-white/45">113 040 EUR/an</span></button>
+                <button class="persona border border-white/10 bg-white/[.055] px-5 py-5 text-left text-sm font-black text-white/85 transition hover:border-gold/60 hover:bg-gold/10 focus:border-gold focus:outline-none" data-pass="4" type="button">Dirigeant premium<br><span class="text-xs font-semibold text-white/45">188 400 EUR/an</span></button>
+              </div>
+
+              <div class="mt-9 grid gap-5 md:grid-cols-2">
+                <div class="gold-border bg-gold/[.09] p-7"><p class="text-[.68rem] font-black uppercase tracking-[.26em] text-champagne">Maintien prioritaire</p><div class="mt-6 flex items-end justify-between gap-4"><p><span id="option80" class="serif text-5xl font-semibold text-white">3 140</span> <span class="text-white/50">EUR/mois</span></p><span class="text-sm font-black text-gold">80%</span></div><p class="mt-4 text-sm leading-6 text-white/60">Pour proteger le niveau de vie et les charges personnelles essentielles.</p></div>
+                <div class="border border-white/10 bg-white/[.045] p-7"><p class="text-[.68rem] font-black uppercase tracking-[.26em] text-white/50">Maintien longue duree</p><div class="mt-6 flex items-end justify-between gap-4"><p><span id="option50" class="serif text-5xl font-semibold text-white">1 963</span> <span class="text-white/50">EUR/mois</span></p><span class="text-sm font-black text-white/50">50%</span></div><p class="mt-4 text-sm leading-6 text-white/60">Pour prioriser la duree, les franchises et la resilience patrimoniale.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preuves" class="bg-parchment py-24 text-slate-950 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center"><p class="text-[.72rem] font-black uppercase tracking-[.38em] text-[#a87c2f]">Preuves de confiance</p><h2 class="serif mt-5 text-5xl font-semibold leading-none sm:text-6xl">Une marque premium doit reduire le doute avant de demander un contact.</h2></div>
+        <div class="mt-16 grid gap-5 lg:grid-cols-3"><article class="reveal bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,.10)]"><p class="serif text-4xl font-semibold">Audit lisible</p><p class="mt-4 leading-7 text-slate-600">Synthese claire des carences, priorites et arbitrages. Pas de jargon inutile.</p></article><article class="reveal bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,.10)]"><p class="serif text-4xl font-semibold">Confidentialite</p><p class="mt-4 leading-7 text-slate-600">Echange prive, donnees limitees a la qualification de votre demande.</p></article><article class="reveal bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,.10)]"><p class="serif text-4xl font-semibold">Decision rapide</p><p class="mt-4 leading-7 text-slate-600">Une trajectoire d'action concrete pour securiser revenu, foyer et statut.</p></article></div>
+      </div>
+    </section>
+
+    <section id="blog" class="bg-[#f6f0e5] py-24 text-slate-950 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
+          <div class="reveal">
+            <p class="text-[.72rem] font-black uppercase tracking-[.38em] text-[#a87c2f]">Bibliotheque TNS</p>
+            <h2 class="serif mt-5 text-5xl font-semibold leading-none sm:text-6xl">Un blog premium pour capter les recherches qui precedent la decision.</h2>
+          </div>
+          <p class="reveal max-w-2xl text-lg leading-8 text-slate-600 lg:justify-self-end">Chaque article repond a une angoisse concrete : arret maladie, retraite, mutuelle, fiscalite, statuts, erreurs frequentes. L'objectif est de convertir la recherche Google en demande d'audit.</p>
+        </div>
+        <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <a class="reveal group bg-white p-7 shadow-[0_24px_70px_rgba(15,23,42,.10)] transition hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(15,23,42,.16)]" href="blog/prevoyance-tns.html"><p class="text-[.65rem] font-black uppercase tracking-[.24em] text-[#a87c2f]">Prevoyance</p><h3 class="serif mt-5 text-3xl font-semibold leading-none">Pourquoi les TNS sous-estiment leur carence.</h3><p class="mt-5 text-sm leading-6 text-slate-600">Le guide expert pour comprendre l'ecart entre protection theorique et revenu reel.</p></a>
+          <a class="reveal group bg-white p-7 shadow-[0_24px_70px_rgba(15,23,42,.10)] transition hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(15,23,42,.16)]" href="blog/arret-maladie-independant.html"><p class="text-[.65rem] font-black uppercase tracking-[.24em] text-[#a87c2f]">Arret maladie</p><h3 class="serif mt-5 text-3xl font-semibold leading-none">Que se passe-t-il si vos revenus s'arretent demain ?</h3><p class="mt-5 text-sm leading-6 text-slate-600">Franchises, indemnites, delais et decisions a prendre avant l'urgence.</p></a>
+          <a class="reveal group bg-white p-7 shadow-[0_24px_70px_rgba(15,23,42,.10)] transition hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(15,23,42,.16)]" href="blog/retraite-independants.html"><p class="text-[.65rem] font-black uppercase tracking-[.24em] text-[#a87c2f]">Retraite</p><h3 class="serif mt-5 text-3xl font-semibold leading-none">Retraite des independants : le risque de niveau de vie.</h3><p class="mt-5 text-sm leading-6 text-slate-600">Comment anticiper une baisse future sans attendre la fin de carriere.</p></a>
+          <a class="reveal group bg-white p-7 shadow-[0_24px_70px_rgba(15,23,42,.10)] transition hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(15,23,42,.16)]" href="blog/erreurs-prevoyance.html"><p class="text-[.65rem] font-black uppercase tracking-[.24em] text-[#a87c2f]">Erreurs</p><h3 class="serif mt-5 text-3xl font-semibold leading-none">Les 7 erreurs de prevoyance les plus couteuses.</h3><p class="mt-5 text-sm leading-6 text-slate-600">Une checklist pour eviter les garanties faibles et les mauvaises franchises.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+      <div class="absolute inset-0"><img src="protected-family-success.png" alt="" class="h-full w-full object-cover opacity-[.22]" onerror="this.src='dirigeant-hero.png'" /><div class="absolute inset-0 bg-obsidian/88"></div></div>
+      <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid gap-12 lg:grid-cols-[.88fr_1.12fr] lg:items-start">
+          <div class="reveal lg:sticky lg:top-32"><p class="text-[.72rem] font-black uppercase tracking-[.38em] text-gold">Audit prive offert</p><h2 class="serif mt-5 text-5xl font-semibold leading-none text-white sm:text-6xl">Faites mesurer votre carence avant qu'elle ne vous coute.</h2><p class="mt-7 text-lg leading-8 text-platinum/70">Un conseiller vous rappelle pour qualifier votre statut, vos revenus de reference et les garanties a prioriser.</p></div>
+          <form id="leadForm" class="reveal bg-parchment p-6 text-slate-950 shadow-[0_32px_110px_rgba(0,0,0,.35)] sm:p-10" action="mailto:contact@advancedcourtages.com" method="post" enctype="text/plain">
+            <div class="grid gap-5 sm:grid-cols-2"><label><span class="mb-2 block text-xs font-black uppercase tracking-[.2em] text-slate-500">Nom complet</span><input name="Nom complet" class="field-light" type="text" required placeholder="Jean Dupont" /></label><label><span class="mb-2 block text-xs font-black uppercase tracking-[.2em] text-slate-500">Telephone</span><input name="Telephone" class="field-light" type="tel" required placeholder="06 00 00 00 00" /></label><label><span class="mb-2 block text-xs font-black uppercase tracking-[.2em] text-slate-500">Email</span><input name="Email" class="field-light" type="email" required placeholder="vous@entreprise.fr" /></label><label><span class="mb-2 block text-xs font-black uppercase tracking-[.2em] text-slate-500">Statut</span><select name="Statut" class="field-light" required><option value="">Selectionner</option><option>Dirigeant SAS / SASU</option><option>Gerant majoritaire</option><option>Artisan / commercant</option><option>Profession liberale</option></select></label></div>
+            <label class="mt-5 block"><span class="mb-2 block text-xs font-black uppercase tracking-[.2em] text-slate-500">Priorite</span><textarea name="Priorite" class="field-light min-h-32 resize-y" placeholder="Maintien de revenu, invalidite, audit de contrats existants..."></textarea></label>
+            <label class="mt-6 flex gap-3 text-sm leading-6 text-slate-600"><input class="mt-1 h-4 w-4 accent-[#d2ad63]" type="checkbox" required /><span>J'accepte d'etre recontacte dans le cadre de ma demande d'audit prive.</span></label>
+            <button class="btn-primary shine mt-8 w-full px-7 py-5 text-sm" type="submit">Recevoir mon audit prive</button><p id="formNote" class="mt-5 hidden border border-[#d2ad63]/40 bg-[#d2ad63]/10 p-4 text-sm font-semibold text-slate-800">Votre demande est prete. Votre client mail va s'ouvrir.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-obsidian py-12 pb-28 lg:pb-12">
+    <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 text-center sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:text-left">
+      <div><img src="logo-advanced..png" alt="Advanced Courtages Consulting" class="mx-auto h-12 w-auto lg:mx-0" /><p class="mt-4 max-w-2xl text-xs leading-6 text-white/38">Advanced Courtages Consulting. Simulations non contractuelles, etablies a titre indicatif. Toute recommandation depend d'un audit de situation et des conditions de souscription.</p></div>
+      <a href="#top" class="text-[.68rem] font-black uppercase tracking-[.28em] text-champagne">Retour haut de page</a>
+    </div>
+  </footer>
+
+  <div class="fixed inset-x-3 bottom-3 z-40 lg:hidden"><a href="#simulateur" class="btn-primary shine flex w-full px-5 py-4 text-xs">Calculer ma carence</a></div>
+
+  <script>
+    const PASS_2025 = 47100;
+    const formatEuro = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 });
+    const range = document.getElementById('incomeRange');
+    const incomeInput = document.getElementById('incomeInput');
+    const resetSimulator = document.getElementById('resetSimulator');
+    const incomeValue = document.getElementById('incomeValue');
+    const passLabel = document.getElementById('passLabel');
+    const option80 = document.getElementById('option80');
+    const option50 = document.getElementById('option50');
+
+    function clamp(value, min, max) { return Math.min(Math.max(value, min), max); }
+
+    function updateSimulator(source) {
+      let multiple;
+      let annual;
+      if (source === 'input') {
+        const cleanValue = String(incomeInput.value || '').replace(/[^\d]/g, '');
+        annual = clamp(Number(cleanValue || PASS_2025), PASS_2025 * 0.5, PASS_2025 * 5);
+        multiple = annual / PASS_2025;
+        range.value = Math.round(multiple * 10) / 10;
+      } else {
+        multiple = Number(range.value);
+        annual = multiple * PASS_2025;
+      }
+      const progress = ((multiple - Number(range.min)) / (Number(range.max) - Number(range.min))) * 100;
+      range.style.setProperty('--progress', progress + '%');
+      incomeValue.textContent = formatEuro.format(annual) + ' EUR';
+      incomeInput.value = Math.round(annual);
+      passLabel.textContent = multiple.toFixed(source === 'input' ? 2 : 1) + ' PASS 2025';
+      option80.textContent = formatEuro.format(Math.round((annual * 0.8) / 12));
+      option50.textContent = formatEuro.format(Math.round((annual * 0.5) / 12));
+    }
+
+    range.addEventListener('input', () => updateSimulator('range'));
+    range.addEventListener('change', () => updateSimulator('range'));
+    incomeInput.addEventListener('input', () => updateSimulator('input'));
+    resetSimulator.addEventListener('click', () => { range.value = 1; updateSimulator('range'); });
+    document.querySelectorAll('.persona').forEach((button) => {
+      button.addEventListener('click', () => { range.value = button.dataset.pass; updateSimulator('range'); });
+    });
+    updateSimulator('range');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach((el, index) => {
+      el.style.transitionDelay = Math.min(index % 3, 2) * 80 + 'ms';
+      observer.observe(el);
+    });
+
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    const form = document.getElementById('leadForm');
+    const formNote = document.getElementById('formNote');
+    form.addEventListener('submit', () => formNote.classList.remove('hidden'));
+  </script>
+</body>
+</html>
