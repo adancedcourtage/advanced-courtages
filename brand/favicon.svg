@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gold" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8E7B8"/>
+      <stop offset=".52" stop-color="#D2AD63"/>
+      <stop offset="1" stop-color="#9B6F2D"/>
+    </linearGradient>
+  </defs>
   <rect width="64" height="64" rx="15" fill="#050B14"/>
-  <path d="M32 7 53 16v16c0 14-9 23-21 29C20 55 11 46 11 32V16l21-9Z" fill="none" stroke="#D2AD63" stroke-width="3"/>
-  <path d="M20 46 32 18l12 28" fill="none" stroke="#F4DFB2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M25 35h14" stroke="#D2AD63" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="25" fill="#071426" stroke="url(#gold)" stroke-width="2.5"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="19" font-weight="700" letter-spacing=".8" fill="#F8E7B8">TNS</text>
 </svg>

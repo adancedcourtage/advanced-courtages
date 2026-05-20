@@ -1,9 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 128" role="img" aria-labelledby="title">
-  <title id="title">Advanced Courtages light logo</title>
-  <defs><linearGradient id="gold" x1="12" y1="12" x2="104" y2="112"><stop stop-color="#F4DFB2"/><stop offset=".52" stop-color="#D2AD63"/><stop offset="1" stop-color="#9B6F2D"/></linearGradient></defs>
-  <rect width="620" height="128" fill="#F6F0E5"/>
-  <g transform="translate(8 8)"><path d="M56 2 102 22v35c0 30-19.6 49-46 61C29.6 106 10 87 10 57V22L56 2Z" fill="none" stroke="url(#gold)" stroke-width="4"/><path d="M31 84 56 25l25 59" fill="none" stroke="#071426" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 61h29" stroke="#D2AD63" stroke-width="4" stroke-linecap="round"/></g>
-  <text x="146" y="58" font-family="Cormorant Garamond, Georgia, serif" font-size="35" font-weight="600" letter-spacing="7" fill="#071426">ADVANCED</text>
-  <text x="373" y="58" font-family="Cormorant Garamond, Georgia, serif" font-size="35" font-weight="600" letter-spacing="7" fill="#9B6F2D">COURTAGES</text>
-  <text x="149" y="88" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="8" fill="#334155">PRIVATE RISK ADVISORY</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 128" role="img" aria-labelledby="title">
+  <title id="title">TNS Conseils</title>
+  <defs>
+    <linearGradient id="gold" x1="18" y1="14" x2="116" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8E7B8"/>
+      <stop offset=".48" stop-color="#D2AD63"/>
+      <stop offset="1" stop-color="#9B6F2D"/>
+    </linearGradient>
+    <radialGradient id="navy" cx="48%" cy="32%" r="72%">
+      <stop stop-color="#111E32"/>
+      <stop offset="1" stop-color="#050B14"/>
+    </radialGradient>
+  </defs>
+  <rect width="430" height="128" fill="none"/>
+  <g transform="translate(8 8)">
+    <circle cx="56" cy="56" r="53" fill="url(#navy)" stroke="url(#gold)" stroke-width="3"/>
+    <circle cx="56" cy="56" r="43" fill="none" stroke="#D2AD63" stroke-opacity=".7" stroke-width="1.5"/>
+    <text x="56" y="66" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="35" font-weight="700" letter-spacing="1.5" fill="#F8E7B8">TNS</text>
+    <path d="M36 78h40" stroke="#D2AD63" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <g>
+    <text x="136" y="58" font-family="Cormorant Garamond, Georgia, serif" font-size="44" font-weight="700" letter-spacing="2" fill="#F8FAFC">TNS</text>
+    <text x="136" y="91" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="7" fill="#D2AD63">CONSEILS</text>
+    <path d="M135 104h185" stroke="#F4DFB2" stroke-opacity=".45" stroke-width="1.5"/>
+  </g>
 </svg>

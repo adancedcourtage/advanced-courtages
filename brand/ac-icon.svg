@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
-  <title id="title">Advanced Courtages icon</title>
+  <title id="title">TNS Conseils icon</title>
   <defs>
-    <linearGradient id="g" x1="18" y1="14" x2="82" y2="84" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F4DFB2"/>
-      <stop offset=".52" stop-color="#D2AD63"/>
+    <linearGradient id="gold" x1="12" y1="8" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8E7B8"/>
+      <stop offset=".5" stop-color="#D2AD63"/>
       <stop offset="1" stop-color="#9B6F2D"/>
     </linearGradient>
+    <radialGradient id="navy" cx="48%" cy="32%" r="72%">
+      <stop stop-color="#111E32"/>
+      <stop offset="1" stop-color="#050B14"/>
+    </radialGradient>
   </defs>
   <rect width="96" height="96" rx="22" fill="#050B14"/>
-  <path d="M48 12 78 25v23c0 20-12.8 32.4-30 40-17.2-7.6-30-20-30-40V25l30-13Z" fill="none" stroke="url(#g)" stroke-width="4"/>
-  <path d="M31 67 48 27l17 40" fill="none" stroke="#F4DFB2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M38 52h20" stroke="#D2AD63" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="48" cy="48" r="39" fill="url(#navy)" stroke="url(#gold)" stroke-width="3"/>
+  <circle cx="48" cy="48" r="31" fill="none" stroke="#D2AD63" stroke-opacity=".7" stroke-width="1.4"/>
+  <text x="48" y="56" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="27" font-weight="700" letter-spacing="1" fill="#F8E7B8">TNS</text>
+  <path d="M32 66h32" stroke="#D2AD63" stroke-width="1.4" stroke-linecap="round"/>
 </svg>
