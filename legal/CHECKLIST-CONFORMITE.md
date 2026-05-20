@@ -52,7 +52,7 @@ Cette checklist sert à finaliser les pages légales du site `tnsconseils.com` p
 - Durée de conservation réclamations :
 - Prestataires ayant accès aux données :
 - Transferts hors UE :
-- Outil formulaire utilisé : mailto statique vers conseiller@advancedcourtages.com / clients@advancedcourtages.com
+- Outil formulaire utilisé : formulaire externe securise vers conseiller@advancedcourtages.com pour les demandes d'audit ; mailto statique uniquement pour certaines demandes de contact/reclamation.
 - CRM utilisé :
 - Outil email / newsletter :
 - Outil prise de rendez-vous :
