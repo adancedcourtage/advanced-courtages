@@ -142,12 +142,13 @@
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   CONFIGURATION — à remplir après avoir créé ton Google Sheet.
-   Colle ici l'URL du script Google (voir README-simulateur.md).
-   Laisse "" tant que ce n'est pas prêt : la page marchera quand même,
-   elle affichera le résultat sans encore enregistrer le lead.
+   CONFIGURATION
+   Les leads sont envoyés PAR EMAIL via FormSubmit — le même service
+   que le formulaire de contact du site. Aucun compte, aucune config :
+   chaque check-up rempli arrive directement dans la boîte mail ci-dessous.
+   Pour changer l'adresse de réception, modifie simplement LEAD_EMAIL.
    ═══════════════════════════════════════════════════════════════ */
-const SHEET_WEBHOOK_URL = "";
+const LEAD_EMAIL = "conseiller@advancedcourtages.com";
 
 const PRIVACY_URL = "https://tnsconseils.com/politique-de-confidentialite";
 
@@ -411,19 +412,18 @@ function submitLead(r){
 
   const done = ()=> renderThanks();
 
-  if(SHEET_WEBHOOK_URL){
-    fetch(SHEET_WEBHOOK_URL, {
-      method:"POST", mode:"no-cors",
-      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-      body: new URLSearchParams(payload).toString(),
-    }).then(done).catch(()=>{
-      // no-cors ne permet pas de lire la réponse : on considère l'envoi ok.
-      done();
-    });
-  } else {
-    console.log("[Simulateur] Lead (aucun Sheet branché) :", payload);
-    setTimeout(done, 500);
-  }
+  // Envoi du lead par email via FormSubmit (même service que le site).
+  const body = Object.assign({
+    _subject: "🔔 Nouveau lead — Check-up prévoyance (" + payload.resultat + ")",
+    _template: "table",
+    _captcha: "false",
+  }, payload);
+
+  fetch("https://formsubmit.co/ajax/" + LEAD_EMAIL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(body),
+  }).then(done).catch(done);
 }
 
 function renderThanks(){
