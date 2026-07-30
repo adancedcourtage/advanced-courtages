@@ -150,7 +150,7 @@
    ═══════════════════════════════════════════════════════════════ */
 const LEAD_EMAIL = "conseiller@advancedcourtages.com";
 
-const PRIVACY_URL = "https://tnsconseils.com/politique-de-confidentialite";
+const PRIVACY_URL = "https://tnsconseils.com/legal/confidentialite.html";
 
 /* ── Définition des questions ────────────────────────────────── */
 const QUESTIONS = [
@@ -410,20 +410,44 @@ function submitLead(r){
 
   btn.disabled = true; btn.textContent = "Envoi…";
 
-  const done = ()=> renderThanks();
+  // Envoi du lead via l'endpoint STANDARD de FormSubmit (le même, déjà activé,
+  // que le formulaire de contact du site). On construit un vrai formulaire et on
+  // le soumet : FormSubmit enregistre + envoie l'email, puis renvoie l'utilisateur
+  // vers ?merci=1 (écran de remerciement géré au chargement de la page).
+  const ageLabel = QUESTIONS[1].options.find(o => o.v === answers.age).t;
+  const ouiNon = (v) => v === "oui" ? "Oui" : v === "non" ? "Non" : "Ne sait pas";
+  const budgetLabel = QUESTIONS[4].options.find(o => o.v === answers.budget).t;
 
-  // Envoi du lead par email via FormSubmit (même service que le site).
-  const body = Object.assign({
-    _subject: "🔔 Nouveau lead — Check-up prévoyance (" + payload.resultat + ")",
+  const fields = {
+    _subject: "Nouveau lead — Check-up prevoyance (" + r.tier + ")",
     _template: "table",
     _captcha: "false",
-  }, payload);
+    _next: location.origin + location.pathname + "?merci=1",
+    "Source": "Simulateur check-up prevoyance",
+    "Statut": answers.statut,
+    "Age": ageLabel,
+    "A une prevoyance": ouiNon(answers.prevoyance),
+    "Arret couvert": ouiNon(answers.arret),
+    "Budget mensuel": budgetLabel,
+    "Resultat": r.tier,
+    "Email": email,
+    "Telephone": phone || "(non renseigne)",
+    "Consentement WhatsApp": wa ? "OUI" : "non",
+    "Consentement RGPD": "OUI",
+  };
 
-  fetch("https://formsubmit.co/ajax/" + LEAD_EMAIL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-    body: JSON.stringify(body),
-  }).then(done).catch(done);
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://formsubmit.co/" + LEAD_EMAIL;
+  for (const [name, value] of Object.entries(fields)) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
 }
 
 function renderThanks(){
@@ -437,7 +461,12 @@ function renderThanks(){
     </div>`;
 }
 
-render();
+// Retour depuis FormSubmit après un envoi réussi → écran de remerciement.
+if (new URLSearchParams(location.search).get("merci") === "1") {
+  renderThanks();
+} else {
+  render();
+}
 </script>
 </body>
 </html>
