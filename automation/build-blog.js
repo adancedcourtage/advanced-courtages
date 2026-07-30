@@ -86,7 +86,15 @@ function parseArticle(md) {
 }
 
 // ── Gabarit HTML (repris du design des articles existants) ──────
-function renderPage({ title, metaDesc, chapo, bodyHtml }) {
+function renderPage({ title, metaDesc, chapo, bodyHtml, related = [] }) {
+  const relatedHtml = related.length
+    ? `<div class="mt-14 border-t border-slate-300 pt-8"><p class="text-xs font-black uppercase tracking-[.2em] text-[#a87c2f]">À lire aussi</p><ul class="mt-4 grid gap-2 list-none pl-0">${related
+        .map(
+          (r) =>
+            `<li><a href="${r.file}" class="text-slate-800 underline decoration-[#d2ad63] underline-offset-4">${escapeHtml(r.title)}</a></li>`
+        )
+        .join("")}</ul></div>`
+    : "";
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -106,6 +114,7 @@ function renderPage({ title, metaDesc, chapo, bodyHtml }) {
     <section class="relative overflow-hidden bg-[#071426] px-5 py-20"><div class="mx-auto max-w-5xl"><p class="text-xs font-black uppercase tracking-[.34em] text-[#d2ad63]">Prévoyance TNS</p><h1 class="serif mt-5 max-w-4xl text-4xl font-semibold leading-none md:text-6xl">${escapeHtml(title)}</h1><p class="mt-7 max-w-2xl text-lg leading-8 text-white/68">${escapeHtml(chapo)}</p></div></section>
     <article class="article bg-[#f6f0e5] px-5 py-16 text-slate-950"><div class="mx-auto max-w-3xl">
       ${bodyHtml}
+      ${relatedHtml}
       <div class="mt-12 bg-[#071426] p-8 text-white"><p class="serif text-3xl font-semibold">Votre couverture est-elle vraiment adaptée&nbsp;?</p><a href="${SIMULATOR_PATH}" class="mt-6 inline-flex bg-[#d2ad63] px-6 py-4 text-xs font-black uppercase tracking-[.2em] text-[#071426]">Faire mon check-up gratuit</a></div>
     </div></article>
   </main>
@@ -152,6 +161,61 @@ function buildIndex() {
   return files.length;
 }
 
+const SITE = "https://tnsconseils.com";
+
+// Titre lisible d'un article publié (depuis sa balise <title>).
+function articleTitle(file) {
+  const html = readFileSync(join(BLOG_DIR, file), "utf-8");
+  const t = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || file;
+  return t.replace(/\s*\|\s*TNS Conseils\s*$/, "");
+}
+
+// Liste des articles du blog (hors index) : { file, title }.
+function existingArticles() {
+  return readdirSync(BLOG_DIR)
+    .filter((f) => f.endsWith(".html") && f !== "index.html")
+    .map((f) => ({ file: f, title: articleTitle(f) }));
+}
+
+// sitemap.xml (racine du dépôt) + robots.txt si absent → indexation plus rapide.
+function buildSitemap() {
+  const REPO_ROOT = join(__dirname, "..");
+  const urls = new Set([`${SITE}/`, `${SITE}/simulateur/`, `${SITE}/blog/`]);
+  for (const f of readdirSync(REPO_ROOT)) {
+    // pages HTML de la racine, en excluant les sauvegardes "index-old…"
+    if (f.endsWith(".html") && !/^index[ -]/.test(f) && f !== "index.html")
+      urls.add(`${SITE}/${f}`);
+  }
+  for (const f of readdirSync(BLOG_DIR)) {
+    if (f.endsWith(".html") && f !== "index.html") urls.add(`${SITE}/blog/${f}`);
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const body = [...urls]
+    .map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`)
+    .join("\n");
+  writeFileSync(
+    join(REPO_ROOT, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`,
+    "utf-8"
+  );
+  // robots.txt : ne crée que s'il n'existe pas (on ne touche pas à d'éventuelles règles).
+  const robots = join(REPO_ROOT, "robots.txt");
+  if (!existsSync(robots)) {
+    writeFileSync(robots, `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`, "utf-8");
+  }
+  return urls.size;
+}
+
+// Prend jusqu'à `n` articles au hasard parmi `list`, en excluant `selfFile`.
+function pickRelated(list, selfFile, n = 3) {
+  const pool = list.filter((a) => a.file !== selfFile);
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, n);
+}
+
 // ── Trouve le dernier dossier de production local ───────────────
 function latestLocalDir() {
   if (!existsSync(CONTENT_DIR)) return null;
@@ -175,6 +239,7 @@ function main() {
   const pairs = readdirSync(localDir).filter((f) => statSync(join(localDir, f)).isDirectory());
   let published = 0;
   const skipped = [];
+  const articles = existingArticles(); // pour le maillage interne (s'enrichit au fil des publications)
 
   for (const pair of pairs) {
     const mdPath = join(localDir, pair, "blog.md");
@@ -189,14 +254,18 @@ function main() {
     }
 
     const parsed = parseArticle(md);
-    const outFile = join(BLOG_DIR, `${pair}.html`);
-    writeFileSync(outFile, renderPage(parsed), "utf-8");
-    console.log(`✅ Publié : blog/${pair}.html`);
+    const outFile = `${pair}.html`;
+    const related = pickRelated(articles, outFile, 3);
+    writeFileSync(join(BLOG_DIR, outFile), renderPage({ ...parsed, related }), "utf-8");
+    if (!articles.some((a) => a.file === outFile))
+      articles.push({ file: outFile, title: parsed.title });
+    console.log(`✅ Publié : blog/${outFile}`);
     published++;
   }
 
   const total = buildIndex();
-  console.log(`\n📄 ${published} article(s) publié(s), ${skipped.length} ignoré(s). Index: ${total} articles au total.`);
+  const sm = buildSitemap();
+  console.log(`\n📄 ${published} article(s) publié(s), ${skipped.length} ignoré(s). Index: ${total} articles. Sitemap: ${sm} URLs.`);
   if (skipped.length) {
     console.log("À relire manuellement (bloqués par le garde-fou conformité) :");
     skipped.forEach((s) => console.log(`  - ${s.pair} : ${s.issues.join(", ")}`));

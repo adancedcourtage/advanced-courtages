@@ -22,6 +22,7 @@
 // MODE LOCAL (SEO géolocalisé — article blog par ville, pointe vers /simulateur) :
 //   node generate.js --local --zone pau            (1 ville × N thèmes)
 //   node generate.js --local --all-zones           (toutes les zones × N thèmes)
+//   node generate.js --local --max-zones 3          (3 villes les moins récentes — rythme "qualité")
 //   node generate.js --local --zone dax --linkedin (ajoute aussi le post LinkedIn)
 //   node generate.js --local --zone pau --theme delai-carence-arret-maladie
 // ─────────────────────────────────────────────────────────────
@@ -67,6 +68,7 @@ function parseArgs() {
     local: false,
     zone: null,
     allZones: false,
+    maxZones: null,
     linkedin: false,
   };
   for (let i = 0; i < args.length; i++) {
@@ -83,6 +85,9 @@ function parseArgs() {
       i++;
     } else if (args[i] === "--all-zones") {
       out.allZones = true;
+    } else if (args[i] === "--max-zones" && args[i + 1]) {
+      out.maxZones = parseInt(args[i + 1], 10) || null;
+      i++;
     } else if (args[i] === "--linkedin") {
       out.linkedin = true;
     }
@@ -276,6 +281,18 @@ function recentLocalKeys(history) {
   );
 }
 
+// Date de dernière production par zone (timestamp), pour prioriser
+// les villes les moins récemment traitées (rotation --max-zones).
+function zoneLastUsed(history) {
+  const map = new Map();
+  for (const e of history) {
+    const zoneSlug = String(e.key).split("__")[0];
+    const t = new Date(e.date).getTime();
+    if (!map.has(zoneSlug) || t > map.get(zoneSlug)) map.set(zoneSlug, t);
+  }
+  return map;
+}
+
 // Pour une zone donnée, pioche `count` thèmes dont la paire zone+thème
 // n'a pas été produite depuis 8 semaines.
 function pickThemesForZone(allThemes, zone, count, burned) {
@@ -301,7 +318,7 @@ function recordLocalUsage(pairs) {
 }
 
 async function mainLocal(args) {
-  const { count, zone: zoneArg, allZones, only, linkedin } = args;
+  const { count, zone: zoneArg, allZones, maxZones, only, linkedin } = args;
   const tone = readConfigFile("config/tone.md");
   const allThemes = JSON.parse(readConfigFile("config/themes.json")).themes;
 
@@ -313,9 +330,7 @@ async function mainLocal(args) {
 
   // Quelles zones traiter ?
   let zones;
-  if (allZones) {
-    zones = zonesData;
-  } else if (zoneArg) {
+  if (zoneArg) {
     const z = zonesData.find((x) => x.slug === zoneArg);
     if (!z) {
       console.error(`❌ Zone introuvable : "${zoneArg}". Slugs disponibles :`);
@@ -323,13 +338,23 @@ async function mainLocal(args) {
       process.exit(1);
     }
     zones = [z];
+  } else if (allZones || maxZones) {
+    zones = zonesData;
   } else {
     console.error(
-      "❌ En mode --local, précise une zone : --zone <slug>  ou  --all-zones\n" +
+      "❌ En mode --local, précise : --zone <slug>, --all-zones, ou --max-zones N\n" +
         "   Zones disponibles :\n" +
         zonesData.map((x) => "   - " + x.slug).join("\n")
     );
     process.exit(1);
+  }
+
+  // --max-zones N : garde les N villes les MOINS récemment traitées (rotation).
+  if (maxZones && zones.length > maxZones) {
+    const lastUsed = zoneLastUsed(loadLocalHistory());
+    zones = [...zones]
+      .sort((a, b) => (lastUsed.get(a.slug) || 0) - (lastUsed.get(b.slug) || 0))
+      .slice(0, maxZones);
   }
 
   // Formats : blog en priorité pour le SEO local, LinkedIn optionnel.

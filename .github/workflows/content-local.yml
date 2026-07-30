@@ -42,7 +42,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SIMULATOR_URL: "https://tnsconseils.com/simulateur"
-        run: node generate.js --local --all-zones --themes 1
+        run: node generate.js --local --max-zones 3 --themes 1
 
       - name: Convertir en pages HTML (+ garde-fou conformité)
         working-directory: automation
