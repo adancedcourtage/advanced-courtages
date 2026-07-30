@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check-up gratuit de ma prévoyance TNS — TNS Conseils</title>
+<meta name="description" content="En 2 minutes, évaluez gratuitement votre couverture prévoyance de travailleur non salarié et repérez vos éventuels trous de garantie.">
+<style>
+  :root{
+    --navy:#0B2A4A; --navy-2:#123a63; --ink:#1a2431; --muted:#5b6b7d;
+    --line:#e3e9f0; --bg:#f4f7fb; --card:#ffffff;
+    --accent:#0aa1a1; --accent-d:#088a8a;
+    --red:#c0392b; --red-bg:#fdecea; --orange:#c77700; --orange-bg:#fff4e2;
+    --green:#1e8f4e; --green-bg:#e7f7ee;
+    --radius:16px; --shadow:0 10px 30px rgba(11,42,74,.10);
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--font); color:var(--ink); background:var(--bg);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  .wrap{width:100%; max-width:620px; margin:0 auto; padding:24px 18px 48px; flex:1}
+  header.brand{display:flex; align-items:center; gap:10px; margin-bottom:20px}
+  header.brand .logo{
+    width:38px;height:38px;border-radius:10px;background:var(--navy);
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:.5px;
+  }
+  header.brand b{color:var(--navy);font-size:16px}
+  header.brand span{color:var(--muted);font-size:12.5px;display:block;font-weight:400}
+
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px;border:1px solid var(--line)}
+
+  /* progress */
+  .progress{margin-bottom:22px}
+  .progress .bar{height:8px;background:#e9eef5;border-radius:99px;overflow:hidden}
+  .progress .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--navy));transition:width .35s ease;border-radius:99px}
+  .progress .lbl{font-size:12.5px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between}
+
+  h1{font-size:23px;line-height:1.25;color:var(--navy);margin:0 0 8px}
+  .lead{color:var(--muted);font-size:15px;margin:0 0 22px}
+  .q{font-size:20px;color:var(--navy);font-weight:700;margin:4px 0 20px}
+
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{
+    display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+    background:#fff;border:1.5px solid var(--line);border-radius:12px;
+    padding:15px 16px;font-size:15.5px;color:var(--ink);cursor:pointer;
+    transition:.15s;font-family:inherit;
+  }
+  .opt:hover{border-color:var(--accent);background:#f7fdfd}
+  .opt .dot{width:20px;height:20px;border-radius:50%;border:2px solid #ccd6e0;flex:0 0 auto;transition:.15s}
+  .opt.sel{border-color:var(--accent);background:#effafa}
+  .opt.sel .dot{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff}
+
+  /* nav buttons */
+  .nav{display:flex;gap:12px;margin-top:24px}
+  .btn{
+    font-family:inherit;font-size:15.5px;font-weight:600;border-radius:11px;
+    padding:13px 22px;cursor:pointer;border:none;transition:.15s;
+  }
+  .btn-primary{background:var(--accent);color:#fff;flex:1}
+  .btn-primary:hover{background:var(--accent-d)}
+  .btn-primary:disabled{background:#b8c4cf;cursor:not-allowed}
+  .btn-ghost{background:#eef2f7;color:var(--navy)}
+  .btn-ghost:hover{background:#e2e8f0}
+
+  /* intro */
+  .intro-badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .badge{background:#eff6ff;color:var(--navy);border:1px solid #dce7f5;font-size:12.5px;padding:6px 11px;border-radius:99px;font-weight:600}
+
+  /* result */
+  .result-head{border-radius:12px;padding:18px;margin-bottom:18px;border:1px solid}
+  .result-head.red{background:var(--red-bg);border-color:#f3c6c0}
+  .result-head.orange{background:var(--orange-bg);border-color:#f2dcae}
+  .result-head.green{background:var(--green-bg);border-color:#bfe6cd}
+  .result-head .tier{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+  .result-head.red .tier{color:var(--red)}
+  .result-head.orange .tier{color:var(--orange)}
+  .result-head.green .tier{color:var(--green)}
+  .result-head h2{margin:8px 0 6px;font-size:19px;color:var(--ink)}
+  .result-head p{margin:0;font-size:14.5px;color:#3d4a58}
+  .recap{font-size:13.5px;color:var(--muted);background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:20px}
+  .recap b{color:var(--navy)}
+
+  /* form */
+  .form-title{font-size:17px;color:var(--navy);font-weight:700;margin:4px 0 4px}
+  .form-sub{font-size:14px;color:var(--muted);margin:0 0 18px}
+  label.field{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin:14px 0 6px}
+  label.field .req{color:var(--red)}
+  input[type=email],input[type=tel]{
+    width:100%;font-family:inherit;font-size:15.5px;padding:13px 14px;
+    border:1.5px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);
+  }
+  input:focus{outline:none;border-color:var(--accent)}
+  .check{display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:13.5px;color:#3d4a58}
+  .check input{margin-top:3px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--accent)}
+  .check label{cursor:pointer}
+  .rgpd{margin-top:20px;font-size:12px;color:var(--muted);background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:14px}
+  .rgpd a{color:var(--accent-d)}
+  .err{color:var(--red);font-size:13px;margin-top:10px;display:none}
+
+  .thanks{text-align:center;padding:14px 0}
+  .thanks .ico{width:64px;height:64px;border-radius:50%;background:var(--green-bg);color:var(--green);display:grid;place-items:center;margin:0 auto 16px;font-size:32px}
+  .thanks h2{color:var(--navy);margin:0 0 8px}
+  .thanks p{color:var(--muted);margin:0 auto;max-width:420px}
+
+  footer{text-align:center;font-size:12px;color:var(--muted);padding:18px}
+  footer b{color:var(--navy)}
+  .hidden{display:none!important}
+  @media(max-width:480px){ .card{padding:22px 17px} h1{font-size:21px} .q{font-size:18px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <div class="logo">TNS</div>
+    <div>
+      <b>TNS Conseils</b>
+      <span>Advanced Courtages Consulting</span>
+    </div>
+  </header>
+
+  <div class="card">
+    <!-- Barre de progression -->
+    <div class="progress hidden" id="progress">
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="lbl"><span id="stepLbl">Étape 1 sur 5</span><span id="pct">0%</span></div>
+    </div>
+
+    <!-- Zone dynamique -->
+    <div id="screen"></div>
+  </div>
+</div>
+
+<footer>
+  Check-up réalisé par <b>Advanced Courtages Consulting</b> — courtage en assurance santé &amp; prévoyance TNS.
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CONFIGURATION — à remplir après avoir créé ton Google Sheet.
+   Colle ici l'URL du script Google (voir README-simulateur.md).
+   Laisse "" tant que ce n'est pas prêt : la page marchera quand même,
+   elle affichera le résultat sans encore enregistrer le lead.
+   ═══════════════════════════════════════════════════════════════ */
+const SHEET_WEBHOOK_URL = "";
+
+const PRIVACY_URL = "https://tnsconseils.com/politique-de-confidentialite";
+
+/* ── Définition des questions ────────────────────────────────── */
+const QUESTIONS = [
+  { key:"statut", q:"Quel est votre statut ?",
+    options:[
+      {v:"Profession libérale",t:"Profession libérale"},
+      {v:"Commerçant",t:"Commerçant"},
+      {v:"Artisan",t:"Artisan"},
+      {v:"Gérant (EURL/SARL)",t:"Gérant (EURL/SARL)"},
+      {v:"Autre",t:"Autre / je ne sais pas"},
+    ]},
+  { key:"age", q:"Votre tranche d'âge ?",
+    options:[
+      {v:"-30",t:"Moins de 30 ans"},
+      {v:"30-39",t:"30 à 39 ans"},
+      {v:"40-49",t:"40 à 49 ans"},
+      {v:"50-59",t:"50 à 59 ans"},
+      {v:"60+",t:"60 ans et plus"},
+    ]},
+  { key:"prevoyance", q:"Avez-vous une prévoyance aujourd'hui ?",
+    options:[
+      {v:"oui",t:"Oui"},
+      {v:"non",t:"Non"},
+      {v:"nsp",t:"Je ne sais pas"},
+    ]},
+  { key:"arret", q:"Votre revenu est-il couvert en cas d'arrêt de travail ?",
+    options:[
+      {v:"oui",t:"Oui"},
+      {v:"non",t:"Non"},
+      {v:"nsp",t:"Je ne sais pas"},
+    ]},
+  { key:"budget", q:"Budget mensuel actuel pour votre protection ?",
+    options:[
+      {v:"-50",t:"Moins de 50 €"},
+      {v:"50-100",t:"50 à 100 €"},
+      {v:"100-200",t:"100 à 200 €"},
+      {v:"200+",t:"Plus de 200 €"},
+      {v:"nsp",t:"Je ne sais pas"},
+    ]},
+];
+
+const answers = {};
+let current = -1; // -1 = écran d'intro
+
+const screen = document.getElementById("screen");
+const progress = document.getElementById("progress");
+const fill = document.getElementById("fill");
+const stepLbl = document.getElementById("stepLbl");
+const pct = document.getElementById("pct");
+
+/* ── Rendu ───────────────────────────────────────────────────── */
+function render(){
+  if(current === -1) return renderIntro();
+  if(current < QUESTIONS.length) return renderQuestion();
+  return renderResult();
+}
+
+function updateProgress(){
+  progress.classList.remove("hidden");
+  const step = current + 1;
+  const p = Math.round((current / QUESTIONS.length) * 100);
+  fill.style.width = p + "%";
+  stepLbl.textContent = "Étape " + step + " sur " + QUESTIONS.length;
+  pct.textContent = p + "%";
+}
+
+function renderIntro(){
+  progress.classList.add("hidden");
+  screen.innerHTML = `
+    <h1>Votre prévoyance TNS vous protège-t-elle vraiment ?</h1>
+    <p class="lead">En 2 minutes et 5 questions, repérez vos éventuels trous de couverture.
+    Résultat immédiat, gratuit et sans engagement.</p>
+    <div class="intro-badges">
+      <span class="badge">⏱️ 2 minutes</span>
+      <span class="badge">🔒 Sans engagement</span>
+      <span class="badge">🎯 Résultat personnalisé</span>
+    </div>
+    <div class="nav">
+      <button class="btn btn-primary" id="start">Commencer mon check-up →</button>
+    </div>`;
+  document.getElementById("start").onclick = ()=>{ current=0; render(); };
+}
+
+function renderQuestion(){
+  updateProgress();
+  const Q = QUESTIONS[current];
+  const chosen = answers[Q.key];
+  screen.innerHTML = `
+    <div class="q">${Q.q}</div>
+    <div class="opts">
+      ${Q.options.map(o=>`
+        <button class="opt ${chosen===o.v?'sel':''}" data-v="${o.v}">
+          <span class="dot"></span><span>${o.t}</span>
+        </button>`).join("")}
+    </div>
+    <div class="nav">
+      ${current>0?'<button class="btn btn-ghost" id="prev">← Retour</button>':''}
+      <button class="btn btn-primary" id="next" ${chosen?'':'disabled'}>
+        ${current===QUESTIONS.length-1?'Voir mon résultat':'Suivant →'}
+      </button>
+    </div>`;
+
+  screen.querySelectorAll(".opt").forEach(btn=>{
+    btn.onclick = ()=>{
+      answers[Q.key] = btn.dataset.v;
+      render();
+    };
+  });
+  const prev = document.getElementById("prev");
+  if(prev) prev.onclick = ()=>{ current--; render(); };
+  document.getElementById("next").onclick = ()=>{
+    if(!answers[Q.key]) return;
+    current++; render();
+  };
+}
+
+/* ── Calcul du résultat (if/else, score de trou de couverture) ── */
+function computeResult(){
+  let score = 0;
+  const flags = [];
+
+  if(answers.prevoyance==="non"){ score+=3; flags.push("vous n'avez pas de prévoyance"); }
+  else if(answers.prevoyance==="nsp"){ score+=2; flags.push("vous n'êtes pas sûr d'avoir une prévoyance"); }
+
+  if(answers.arret==="non"){ score+=3; flags.push("votre revenu ne serait pas couvert en cas d'arrêt"); }
+  else if(answers.arret==="nsp"){ score+=2; flags.push("vous ne savez pas si votre revenu est couvert en cas d'arrêt"); }
+
+  if(answers.budget==="-50"){ score+=2; }
+  else if(answers.budget==="nsp"){ score+=1; }
+
+  // L'enjeu monte avec l'âge (charges, crédits, famille)
+  if(answers.age==="50-59"){ score+=1; }
+  else if(answers.age==="60+"){ score+=2; }
+
+  let tier;
+  if(score>=5) tier="red";
+  else if(score>=2) tier="orange";
+  else tier="green";
+
+  return { score, tier, flags };
+}
+
+const STATUT_LABEL = {
+  "Profession libérale":"profession libérale","Commerçant":"commerçant",
+  "Artisan":"artisan","Gérant (EURL/SARL)":"gérant","Autre":"indépendant"
+};
+
+function resultContent(r){
+  const statut = STATUT_LABEL[answers.statut] || "indépendant";
+  const flagTxt = r.flags.length
+    ? "D'après vos réponses, en tant que "+statut+", "+r.flags.join(" et ")+"."
+    : "En tant que "+statut+", vous semblez avoir posé les bonnes bases.";
+
+  if(r.tier==="red") return {
+    tier:"Trou de couverture important", ico:"⚠️",
+    title:"Votre revenu n'est probablement pas protégé",
+    body:flagTxt+" C'est le point à sécuriser en priorité : en cas d'arrêt de travail, vos charges continueraient de tomber sans revenu de remplacement (le montant réel dépend toujours de votre contrat)."
+  };
+  if(r.tier==="orange") return {
+    tier:"Couverture partielle à vérifier", ico:"🔎",
+    title:"Vous avez une base, mais des zones d'ombre subsistent",
+    body:flagTxt+" Plusieurs points méritent d'être vérifiés (montant des indemnités, délai de carence, garanties adaptées à votre métier) — selon votre contrat."
+  };
+  return {
+    tier:"Couverture a priori en place", ico:"✅",
+    title:"Bon réflexe : vous semblez couvert",
+    body:flagTxt+" Un check-up permet simplement de confirmer que votre contrat suit bien l'évolution de vos revenus et de votre situation."
+  };
+}
+
+function renderResult(){
+  updateProgress();
+  fill.style.width="100%"; pct.textContent="100%";
+  stepLbl.textContent="Votre résultat";
+
+  const r = computeResult();
+  const c = resultContent(r);
+  const recapItems = [
+    ["Statut", answers.statut],
+    ["Âge", QUESTIONS[1].options.find(o=>o.v===answers.age).t],
+    ["Prévoyance", answers.prevoyance==="oui"?"Oui":answers.prevoyance==="non"?"Non":"Ne sait pas"],
+    ["Arrêt couvert", answers.arret==="oui"?"Oui":answers.arret==="non"?"Non":"Ne sait pas"],
+  ];
+
+  screen.innerHTML = `
+    <div class="result-head ${r.tier}">
+      <div class="tier">${c.ico} ${c.tier}</div>
+      <h2>${c.title}</h2>
+      <p>${c.body}</p>
+    </div>
+    <div class="recap">
+      ${recapItems.map(i=>`<b>${i[0]} :</b> ${i[1]}`).join(" &nbsp;·&nbsp; ")}
+    </div>
+
+    <div class="form-title">Recevez votre analyse personnalisée</div>
+    <p class="form-sub">Un conseiller vous transmet une analyse détaillée et gratuite de votre situation.</p>
+
+    <form id="leadForm" novalidate>
+      <label class="field">Votre email <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+
+      <label class="field">Votre téléphone <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
+      <input type="tel" id="phone" placeholder="06 12 34 56 78" autocomplete="tel">
+
+      <div class="check">
+        <input type="checkbox" id="wa">
+        <label for="wa">Je souhaite être recontacté par <b>WhatsApp</b> (facultatif).</label>
+      </div>
+
+      <div class="check">
+        <input type="checkbox" id="rgpd" required>
+        <label for="rgpd">J'accepte d'être recontacté par Advanced Courtages Consulting et que mes réponses soient utilisées pour recevoir une analyse personnalisée. <span class="req">*</span></label>
+      </div>
+
+      <div class="err" id="formErr"></div>
+
+      <div class="nav">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Recevoir mon analyse gratuite</button>
+      </div>
+
+      <div class="rgpd">
+        <b>Protection de vos données.</b> Le responsable de traitement est Advanced Courtages Consulting (TNS Conseils).
+        Vos données (réponses au questionnaire, email et, le cas échéant, téléphone) sont collectées dans le seul but de
+        vous fournir une analyse personnalisée de votre couverture et de vous recontacter à ce sujet. Elles ne sont pas
+        cédées à des tiers. Vous pouvez retirer votre consentement et demander la suppression de vos données à tout moment
+        en nous contactant. En savoir plus : <a href="${PRIVACY_URL}" target="_blank" rel="noopener">politique de confidentialité</a>.
+      </div>
+    </form>`;
+
+  document.getElementById("leadForm").onsubmit = (e)=>{ e.preventDefault(); submitLead(r); };
+}
+
+/* ── Envoi du lead ───────────────────────────────────────────── */
+function submitLead(r){
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const wa = document.getElementById("wa").checked;
+  const rgpd = document.getElementById("rgpd").checked;
+  const errBox = document.getElementById("formErr");
+  const btn = document.getElementById("submitBtn");
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!emailOk){ return showErr("Merci d'indiquer un email valide."); }
+  if(!rgpd){ return showErr("Merci de cocher la case de consentement pour continuer."); }
+
+  function showErr(m){ errBox.textContent=m; errBox.style.display="block"; }
+
+  const payload = {
+    date: new Date().toISOString(),
+    statut: answers.statut, age: answers.age,
+    prevoyance: answers.prevoyance, arret: answers.arret, budget: answers.budget,
+    resultat: r.tier, score: r.score,
+    email, telephone: phone,
+    consentement_whatsapp: wa ? "OUI" : "non",
+    consentement_rgpd: "OUI",
+  };
+
+  btn.disabled = true; btn.textContent = "Envoi…";
+
+  const done = ()=> renderThanks();
+
+  if(SHEET_WEBHOOK_URL){
+    fetch(SHEET_WEBHOOK_URL, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body: new URLSearchParams(payload).toString(),
+    }).then(done).catch(()=>{
+      // no-cors ne permet pas de lire la réponse : on considère l'envoi ok.
+      done();
+    });
+  } else {
+    console.log("[Simulateur] Lead (aucun Sheet branché) :", payload);
+    setTimeout(done, 500);
+  }
+}
+
+function renderThanks(){
+  progress.classList.add("hidden");
+  screen.innerHTML = `
+    <div class="thanks">
+      <div class="ico">✓</div>
+      <h2>C'est enregistré, merci !</h2>
+      <p>Votre analyse personnalisée arrive bientôt. Un conseiller d'Advanced Courtages
+      Consulting vous recontacte rapidement avec les points concrets à sécuriser.</p>
+    </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
