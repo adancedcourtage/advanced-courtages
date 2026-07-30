@@ -1,0 +1,61 @@
+name: Contenu local TNS (SEO auto)
+
+# Machine à contenu 100% automatisée :
+#   1. génère des articles blog localisés (dép. 64 + 40) via Gemini
+#   2. les convertit en pages HTML au design du site
+#   3. garde-fou conformité (bloque tout article à risque)
+#   4. commit + push → GitHub Pages republie → Google indexe → /simulateur → leads
+#
+# Prérequis (1 seule fois) : ajouter le secret GEMINI_API_KEY dans
+# Settings → Secrets and variables → Actions → New repository secret.
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"      # tous les lundis à 07:00 UTC
+  workflow_dispatch: {}       # + bouton "Run workflow" pour lancer à la demande
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-local
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Installer les dépendances
+        working-directory: automation
+        run: npm ci || npm install
+
+      - name: Générer les articles localisés
+        working-directory: automation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SIMULATOR_URL: "https://tnsconseils.com/simulateur"
+        run: node generate.js --local --all-zones --themes 1
+
+      - name: Convertir en pages HTML (+ garde-fou conformité)
+        working-directory: automation
+        run: node build-blog.js
+
+      - name: Publier (commit + push)
+        run: |
+          git config user.name "tns-content-bot"
+          git config user.email "conseiller@advancedcourtages.com"
+          git add blog/ automation/.rotation-history-local.json
+          if git diff --cached --quiet; then
+            echo "Aucun nouvel article à publier."
+          else
+            git commit -m "Contenu local auto: nouveaux articles blog SEO (64/40)"
+            git push
+          fi

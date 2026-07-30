@@ -1,0 +1,103 @@
+{
+  "_comment": "Banque de thèmes / pain points TNS. Le script pioche automatiquement les prochains thèmes non utilisés depuis 8 semaines (rotation gérée dans .rotation-history.json). Tu peux ajouter/modifier des thèmes librement : garde la même structure. 'slug' doit être unique et sans espaces.",
+  "themes": [
+    {
+      "slug": "ecart-couverture-madelin",
+      "titre": "L'écart entre la couverture Madelin et les besoins réels",
+      "douleur": "Beaucoup de TNS croient être bien couverts avec leur contrat Madelin, mais découvrent trop tard que les garanties réelles (indemnités journalières, invalidité, décès) sont largement sous-dimensionnées par rapport à leur train de vie et leurs charges.",
+      "mots_cles_seo": ["contrat Madelin TNS", "couverture prévoyance travailleur non salarié", "garanties Madelin insuffisantes"],
+      "angle": "Faire prendre conscience du décalage chiffré entre ce qui est cotisé et ce qui serait réellement versé en cas de coup dur."
+    },
+    {
+      "slug": "delai-carence-arret-maladie",
+      "titre": "Le délai de carence mal compris en cas d'arrêt maladie",
+      "douleur": "Le TNS pense être indemnisé dès le premier jour d'arrêt, mais un délai de carence (souvent 15, 30 voire 90 jours) s'applique. Résultat : des semaines sans aucun revenu compensé, alors que les charges continuent de tomber.",
+      "mots_cles_seo": ["délai de carence prévoyance TNS", "indemnités journalières arrêt maladie indépendant", "franchise arrêt de travail TNS"],
+      "angle": "Expliquer concrètement ce que veut dire un délai de carence de 30 ou 90 jours en euros non perçus."
+    },
+    {
+      "slug": "contrat-responsable-vs-non-responsable",
+      "titre": "Contrat responsable vs non-responsable et impact sur le 100% Santé",
+      "douleur": "Un TNS avec un contrat non-responsable peut perdre des centaines d'euros de remboursement par an sans le savoir, notamment sur l'optique, le dentaire et l'accès au 100% Santé.",
+      "mots_cles_seo": ["contrat responsable mutuelle TNS", "100% santé travailleur non salarié", "mutuelle non responsable remboursement"],
+      "angle": "Montrer combien un contrat non-responsable coûte réellement chaque année en remboursements perdus."
+    },
+    {
+      "slug": "erreurs-resiliation-infra-annuelle",
+      "titre": "Les erreurs fréquentes au moment de la résiliation infra-annuelle",
+      "douleur": "La résiliation infra-annuelle permet de changer de mutuelle après 1 an quand on veut, mais des erreurs de procédure (mauvais interlocuteur, absence de nouveau contrat avant résiliation, trou de garantie) laissent le TNS sans couverture.",
+      "mots_cles_seo": ["résiliation infra-annuelle mutuelle", "changer de mutuelle TNS", "résiliation loi mutuelle indépendant"],
+      "angle": "Donner la marche à suivre exacte pour changer de mutuelle sans jamais se retrouver à découvert."
+    },
+    {
+      "slug": "mutuelle-generique-vs-contrat-metier",
+      "titre": "La mutuelle générique alors qu'un contrat métier existe",
+      "douleur": "De nombreux TNS paient une mutuelle 'grand public' inadaptée à leur métier, alors qu'il existe des contrats pensés pour leur profession (artisan, commerçant, profession libérale) mieux couvrants à cotisation équivalente.",
+      "mots_cles_seo": ["mutuelle par métier TNS", "contrat prévoyance profession libérale", "mutuelle artisan commerçant"],
+      "angle": "Comparer une mutuelle générique et un contrat métier à budget égal pour montrer l'écart de garanties."
+    },
+    {
+      "slug": "arret-longue-duree-sans-prevoyance",
+      "titre": "Ce qui se passe vraiment en cas d'arrêt longue durée sans prévoyance",
+      "douleur": "Un TNS sans prévoyance qui subit un arrêt de travail long (accident, maladie grave) se retrouve sans revenu de remplacement, avec un régime obligatoire très faible voire inexistant selon le statut.",
+      "mots_cles_seo": ["arrêt de travail long TNS sans prévoyance", "revenu indépendant maladie grave", "prévoyance invalidité travailleur non salarié"],
+      "angle": "Dérouler un scénario concret mois par mois pour un TNS en arrêt long sans prévoyance."
+    },
+    {
+      "slug": "reduire-cotisations-sans-perdre-couverture",
+      "titre": "Réduire ses cotisations sans perdre en couverture",
+      "douleur": "Le TNS croit qu'il doit choisir entre payer moins et être bien couvert. En réalité, une révision de contrat (garanties inutiles, doublons, niveau surdimensionné) permet souvent d'économiser sans dégrader l'essentiel.",
+      "mots_cles_seo": ["réduire cotisation mutuelle TNS", "optimiser prévoyance indépendant", "économiser mutuelle travailleur non salarié"],
+      "angle": "Lister les postes où un TNS paie souvent pour rien, sans toucher aux garanties qui comptent."
+    },
+    {
+      "slug": "regime-obligatoire-tns-faible",
+      "titre": "Pourquoi le régime obligatoire du TNS protège si peu",
+      "douleur": "Le TNS pense que la Sécurité sociale des indépendants le couvre comme un salarié. En réalité, les indemnités journalières et rentes sont bien plus faibles, avec parfois zéro couverture selon le statut.",
+      "mots_cles_seo": ["régime obligatoire TNS", "sécurité sociale des indépendants indemnités", "protection sociale travailleur non salarié"],
+      "angle": "Comparer point par point ce que touche un salarié vs un TNS pour le même arrêt de travail."
+    },
+    {
+      "slug": "conjoint-collaborateur-non-protege",
+      "titre": "Le conjoint collaborateur souvent oublié dans la protection",
+      "douleur": "Le conjoint qui travaille dans l'entreprise sans statut clair (ou mal déclaré) se retrouve sans droits en cas d'arrêt, d'invalidité ou de décès du chef d'entreprise.",
+      "mots_cles_seo": ["conjoint collaborateur protection sociale", "statut conjoint TNS", "prévoyance conjoint indépendant"],
+      "angle": "Alerter sur le risque financier pour le foyer quand le conjoint n'a aucun statut protecteur."
+    },
+    {
+      "slug": "prevoyance-deces-montant-insuffisant",
+      "titre": "Le capital décès prévoyance largement sous-estimé",
+      "douleur": "Le TNS souscrit souvent un capital décès symbolique, sans mesurer ce que représenterait pour sa famille la perte de ses revenus, le remboursement des crédits pro et perso, et le maintien du niveau de vie.",
+      "mots_cles_seo": ["capital décès prévoyance TNS", "assurance décès travailleur indépendant", "protéger sa famille TNS"],
+      "angle": "Aider à calculer le capital décès réellement nécessaire selon les charges et la famille."
+    },
+    {
+      "slug": "indemnites-journalieres-plafonnees",
+      "titre": "Les indemnités journalières plafonnées que personne ne vérifie",
+      "douleur": "Les IJ d'un contrat prévoyance sont souvent plafonnées à un montant fixe qui n'a jamais été réévalué depuis la souscription, alors que les revenus du TNS ont augmenté : en cas d'arrêt, le manque à gagner est énorme.",
+      "mots_cles_seo": ["indemnités journalières prévoyance TNS", "plafond IJ travailleur non salarié", "revalorisation contrat prévoyance"],
+      "angle": "Inciter à vérifier le montant des IJ inscrit au contrat par rapport aux revenus actuels."
+    },
+    {
+      "slug": "cumul-plusieurs-mutuelles-inutile",
+      "titre": "Payer deux mutuelles pour rien",
+      "douleur": "Certains TNS cumulent une mutuelle personnelle et une couverture via un ancien contrat ou celle du conjoint, en payant deux fois sans jamais être mieux remboursés (pas de double remboursement possible).",
+      "mots_cles_seo": ["double mutuelle remboursement", "cumul mutuelle TNS inutile", "optimiser couverture santé indépendant"],
+      "angle": "Expliquer pourquoi payer deux mutuelles ne double jamais les remboursements et comment arbitrer."
+    },
+    {
+      "slug": "deductibilite-madelin-mal-exploitee",
+      "titre": "La déductibilité Madelin mal exploitée (ou mal comprise)",
+      "douleur": "Le dispositif Madelin permet de déduire les cotisations du revenu imposable, mais beaucoup de TNS soit dépassent le plafond sans le savoir, soit sous-utilisent l'avantage fiscal faute de conseil.",
+      "mots_cles_seo": ["déduction Madelin TNS", "avantage fiscal prévoyance indépendant", "plafond Madelin déductibilité"],
+      "angle": "Clarifier ce que la loi Madelin permet vraiment de déduire et les pièges de plafond."
+    },
+    {
+      "slug": "changement-statut-oublie-mise-a-jour",
+      "titre": "Le contrat jamais mis à jour après un changement de situation",
+      "douleur": "Passage en SASU, embauche, déménagement, hausse de revenus, naissance : ces changements devraient déclencher une révision du contrat, mais le TNS garde un contrat figé qui ne correspond plus à sa vie.",
+      "mots_cles_seo": ["mettre à jour contrat prévoyance TNS", "révision mutuelle changement situation", "adapter couverture indépendant"],
+      "angle": "Lister les moments de vie qui doivent déclencher un check-up du contrat."
+    }
+  ]
+}

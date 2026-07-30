@@ -1,0 +1,19 @@
+{
+  "name": "tns-content-machine",
+  "version": "1.0.0",
+  "description": "Machine à contenu automatisée pour TNS Conseils / Advanced Courtages Consulting — génère chaque semaine des contenus (LinkedIn, blog, script vidéo) ciblés sur les douleurs des TNS.",
+  "type": "module",
+  "main": "generate.js",
+  "scripts": {
+    "start": "node generate.js",
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.14.0",
+    "dotenv": "^16.4.5",
+    "marked": "^18.0.7"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

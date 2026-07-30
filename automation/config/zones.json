@@ -1,0 +1,165 @@
+{
+  "_comment": "Zones géographiques pour le contenu localisé (SEO local). Le générateur croise chaque thème (themes.json) avec une zone pour produire une variante localisée pointant vers /simulateur. 'reference_locale' et 'note_secteur' sont injectés dans le prompt pour ancrer l'article. Tu peux ajouter/modifier des zones librement : garde la même structure, 'slug' unique et sans espaces.",
+  "zones": [
+    {
+      "slug": "pyrenees-atlantiques",
+      "type": "departement",
+      "ville": "Pyrénées-Atlantiques",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA Pyrénées-Atlantiques, CCI Pau Béarn Pyrénées, CCI Bayonne Pays Basque",
+      "note_secteur": "tissu TNS partagé entre le Béarn (artisanat, agroalimentaire, commerces) et la Côte Basque (tourisme, restauration, industrie de la glisse, professions libérales)"
+    },
+    {
+      "slug": "pau",
+      "type": "ville",
+      "ville": "Pau",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA Pyrénées-Atlantiques, CCI Pau Béarn Pyrénées",
+      "note_secteur": "artisans du bâtiment, commerçants de centre-ville et professions libérales du Béarn"
+    },
+    {
+      "slug": "bayonne",
+      "type": "ville",
+      "ville": "Bayonne",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI Bayonne Pays Basque, CMA Pyrénées-Atlantiques",
+      "note_secteur": "forte densité de commerces, restauration et artisanat sur l'agglomération du Pays Basque"
+    },
+    {
+      "slug": "anglet",
+      "type": "ville",
+      "ville": "Anglet",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI Bayonne Pays Basque, CMA Pyrénées-Atlantiques",
+      "note_secteur": "commerces, services et TNS liés au tourisme et à la glisse sur la Côte Basque"
+    },
+    {
+      "slug": "biarritz",
+      "type": "ville",
+      "ville": "Biarritz",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI Bayonne Pays Basque, CMA Pyrénées-Atlantiques",
+      "note_secteur": "économie touristique : hôtellerie-restauration, professions libérales, commerces et indépendants saisonniers"
+    },
+    {
+      "slug": "saint-jean-de-luz",
+      "type": "ville",
+      "ville": "Saint-Jean-de-Luz",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI Bayonne Pays Basque, CMA Pyrénées-Atlantiques",
+      "note_secteur": "TNS du tourisme, de la pêche, du commerce et de la restauration, avec une forte saisonnalité"
+    },
+    {
+      "slug": "oloron-sainte-marie",
+      "type": "ville",
+      "ville": "Oloron-Sainte-Marie",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA Pyrénées-Atlantiques, CCI Pau Béarn Pyrénées",
+      "note_secteur": "artisanat, petites industries et agroalimentaire du Haut-Béarn"
+    },
+    {
+      "slug": "orthez",
+      "type": "ville",
+      "ville": "Orthez",
+      "departement": "Pyrénées-Atlantiques",
+      "code_dept": "64",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA Pyrénées-Atlantiques, CCI Pau Béarn Pyrénées",
+      "note_secteur": "commerces, artisanat et activités agricoles du Béarn des gaves"
+    },
+    {
+      "slug": "landes",
+      "type": "departement",
+      "ville": "Landes",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA des Landes, CCI des Landes",
+      "note_secteur": "département marqué par la filière bois-pin (plus grande forêt cultivée d'Europe), l'agriculture (palmipèdes, poulet des Landes) et un fort tourisme littoral (thermalisme, surf)"
+    },
+    {
+      "slug": "mont-de-marsan",
+      "type": "ville",
+      "ville": "Mont-de-Marsan",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA des Landes, CCI des Landes",
+      "note_secteur": "préfecture des Landes : services, agroalimentaire, artisanat et commerces"
+    },
+    {
+      "slug": "dax",
+      "type": "ville",
+      "ville": "Dax",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI des Landes, CMA des Landes",
+      "note_secteur": "première ville thermale de France : santé, thermalisme, tourisme, hôtellerie-restauration et nombreux indépendants du bien-être"
+    },
+    {
+      "slug": "biscarrosse",
+      "type": "ville",
+      "ville": "Biscarrosse",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI des Landes, CMA des Landes",
+      "note_secteur": "TNS du tourisme littoral : campings, restauration, commerces et activités nautiques très saisonniers"
+    },
+    {
+      "slug": "capbreton",
+      "type": "ville",
+      "ville": "Capbreton",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI des Landes, CMA des Landes",
+      "note_secteur": "port, tourisme balnéaire, restauration et industrie de la glisse sur la côte sud landaise"
+    },
+    {
+      "slug": "soustons",
+      "type": "ville",
+      "ville": "Soustons",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI des Landes, CMA des Landes",
+      "note_secteur": "commerces, artisanat, agriculture et tourisme entre lac et océan"
+    },
+    {
+      "slug": "hagetmau",
+      "type": "ville",
+      "ville": "Hagetmau",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CMA des Landes, CCI des Landes",
+      "note_secteur": "tradition artisanale et industrielle (mobilier, agroalimentaire) de la Chalosse"
+    },
+    {
+      "slug": "mimizan",
+      "type": "ville",
+      "ville": "Mimizan",
+      "departement": "Landes",
+      "code_dept": "40",
+      "region": "Nouvelle-Aquitaine",
+      "reference_locale": "CCI des Landes, CMA des Landes",
+      "note_secteur": "filière bois-papier, tourisme littoral et TNS saisonniers du bord de mer"
+    }
+  ]
+}

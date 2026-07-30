@@ -1,0 +1,7 @@
+node_modules/
+content-output/
+.env
+*.log
+.DS_Store
+# NB : .rotation-history-local.json est VOLONTAIREMENT versionné
+# pour que la rotation anti-répétition persiste entre les runs cloud.
