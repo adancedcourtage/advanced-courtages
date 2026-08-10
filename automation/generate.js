@@ -149,8 +149,8 @@ async function generateOne(theme, format, tone, zone = null) {
     `URL du lead magnet (à utiliser telle quelle dans le CTA) : ${SIMULATOR_URL}`,
   ].join("\n");
 
-  // Retry léger : le quota gratuit peut renvoyer un 429 ponctuel.
-  const MAX_RETRIES = 3;
+  // Retry : quota (429) OU coupure réseau passagère ("fetch failed", timeout…).
+  const MAX_RETRIES = 4;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       const response = await genai.models.generateContent({
@@ -166,10 +166,12 @@ async function generateOne(theme, format, tone, zone = null) {
       if (!text) throw new Error("réponse vide du modèle");
       return text;
     } catch (err) {
-      const is429 = /429|quota|rate/i.test(err.message || "");
-      if (is429 && attempt < MAX_RETRIES) {
-        const wait = attempt * 20; // 20s, puis 40s
-        process.stdout.write(`(quota atteint, pause ${wait}s) `);
+      const msg = err.message || "";
+      const is429 = /429|quota|rate/i.test(msg);
+      const isNet = /fetch failed|network|ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|socket|timeout/i.test(msg);
+      if ((is429 || isNet) && attempt < MAX_RETRIES) {
+        const wait = is429 ? attempt * 20 : attempt * 8; // réseau : 8s, 16s, 24s
+        process.stdout.write(`(${is429 ? "quota" : "réseau"}, pause ${wait}s) `);
         await sleep(wait * 1000);
         continue;
       }
@@ -401,6 +403,7 @@ async function mainLocal(args) {
       summaryLines.push(`### ${theme.titre}`);
       summaryLines.push(`- Dossier : \`content-output/${dateStr}/local/${pairSlug}/\``);
 
+      let pairOk = false; // au moins un format généré avec succès ?
       for (const format of localFormats) {
         process.stdout.write(`   • ${zone.slug} × ${theme.slug} — ${format.label}… `);
         try {
@@ -409,14 +412,16 @@ async function mainLocal(args) {
           writeFileSync(join(pairDir, format.outFile), header + content + "\n", "utf-8");
           console.log("✓");
           summaryLines.push(`  - ✅ ${format.label} → \`${format.outFile}\``);
+          pairOk = true;
         } catch (err) {
           console.log("✗ ERREUR");
           console.error(`     ${err.message}`);
           summaryLines.push(`  - ❌ ${format.label} — échec : ${err.message}`);
         }
       }
-      // Marque la paire comme produite (sauf en mode --theme forcé).
-      if (!only) producedPairs.push(`${zone.slug}__${theme.slug}`);
+      // Marque la paire comme produite UNIQUEMENT si la génération a réussi
+      // (sinon la ville échouée revient au prochain run au lieu d'être sautée 8 semaines).
+      if (!only && pairOk) producedPairs.push(`${zone.slug}__${theme.slug}`);
       summaryLines.push("");
     }
   }
