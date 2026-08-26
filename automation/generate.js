@@ -149,12 +149,16 @@ async function generateOne(theme, format, tone, zone = null) {
     `URL du lead magnet (à utiliser telle quelle dans le CTA) : ${SIMULATOR_URL}`,
   ].join("\n");
 
-  // Retry : quota (429) OU coupure réseau passagère ("fetch failed", timeout…).
-  const MAX_RETRIES = 4;
+  // Retry : quota (429), coupure réseau, OU surcharge du modèle (503 "high demand").
+  const FALLBACK = process.env.GEMINI_FALLBACK || "gemini-2.0-flash";
+  const MAX_RETRIES = 5;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    // Dès la 3e tentative, on bascule sur un modèle de secours (utile quand le
+    // modèle principal est temporairement surchargé côté Google).
+    const model = attempt >= 3 ? FALLBACK : MODEL;
     try {
       const response = await genai.models.generateContent({
-        model: MODEL,
+        model,
         contents: userPrompt,
         config: {
           systemInstruction: systemPrompt,
@@ -169,9 +173,11 @@ async function generateOne(theme, format, tone, zone = null) {
       const msg = err.message || "";
       const is429 = /429|quota|rate/i.test(msg);
       const isNet = /fetch failed|network|ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|socket|timeout/i.test(msg);
-      if ((is429 || isNet) && attempt < MAX_RETRIES) {
-        const wait = is429 ? attempt * 20 : attempt * 8; // réseau : 8s, 16s, 24s
-        process.stdout.write(`(${is429 ? "quota" : "réseau"}, pause ${wait}s) `);
+      const isOverload = /503|unavailable|overloaded|high demand/i.test(msg);
+      if ((is429 || isNet || isOverload) && attempt < MAX_RETRIES) {
+        const label = is429 ? "quota" : isOverload ? "surcharge" : "réseau";
+        const wait = is429 ? attempt * 20 : isOverload ? attempt * 25 : attempt * 8;
+        process.stdout.write(`(${label}, pause ${wait}s) `);
         await sleep(wait * 1000);
         continue;
       }
